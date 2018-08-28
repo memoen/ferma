@@ -12,7 +12,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import {FieldsStoreService} from './service/fields-store.service';
 import {CellInfoService} from './service/cell-info.service';
+import {SelectedSeedService} from './service/selected-seed.service';
+import {SeedService} from './service/storage/seed.service';
+import {VieldViewStateService} from './service/vield-view-state.service';
 import { CellAreaComponent } from './fieldView/cell-area/cell-area.component';
+import { SideFilterComponent } from './fieldView/side-filter/side-filter.component';
 
 @NgModule({
   declarations: [
@@ -22,14 +26,15 @@ import { CellAreaComponent } from './fieldView/cell-area/cell-area.component';
     FooterComponent,
     SqCellComponent,
     CellInfoComponent,
-    CellAreaComponent
+    CellAreaComponent,
+    SideFilterComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule
   ],
-  providers: [FieldsStoreService,CellInfoService],
+  providers: [FieldsStoreService,CellInfoService,VieldViewStateService,SelectedSeedService,SeedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

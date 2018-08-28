@@ -1,19 +1,61 @@
 <div class="root">
-  <div class="closeItem" (click)="closeItem()"> X </div>
+  <div class="closeItem" (click)="closeItem()"> <i class="material-icons">
+close
+</i> </div>
   <dir class="contentBody">
-    <div> <i class="material-icons">
-			hourglass_full
-		</i> : {{plantInfo.waterLevel}}
-    </div>
-    <div> <i class="material-icons">
-			grade
-		</i> : {{plantInfo.qualityLevel}}
-    </div>
-    <div> <i class="material-icons">
-			filter_drama
 
-		</i> : {{plantInfo.currentPlant.readyStatus}}
+    <h2>{{plantInfo.currentPlant.name}}</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 imgBlock">
+          <img [src]="plantInfo.currentPlant.src">
+        </div>
+        <div class="col-sm-6">
+          <div> 
+     <p>
+            <i class="material-icons">
+      hourglass_full
+    </i> 
+      Water level
+    : {{plantInfo.waterLevel}}
+    </p>
+      </div>
+      <div>
+    <p>
+       <i class="material-icons">
+      grade
+    </i> 
+     Quality :
+    {{plantInfo.qualityLevel}}
+    </p> 
+      </div>
+
+
+      <div> 
+    <p>
+        <i class="material-icons">
+      filter_drama
+
+    </i>  
+     Ready status
+   : {{plantInfo.currentPlant.readyStatus}}
+   </p>
+
+   <h3> {{plantInfo.currentPlant.price| currency}}</h3>
+      </div>
+        </div>
+
+
+
+        <div class="col-sm-12">
+          <p>
+         {{plantInfo.currentPlant.text}}
+        </p> </div>
+      </div>
+
     </div>
+      
   </dir>
+
 </div>
-<div class="mask" (click)="closeItem()"></div>
+  <div class="mask" (click)="closeItem()"></div>

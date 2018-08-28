@@ -2,7 +2,7 @@
 	width: 60vw;
 	height: 60vh;
 	margin-left: 20%;
-	margin-top: 20%;
+	margin-top: 10%;
 	background: white;
 	position: fixed;
 	z-index: 999;
@@ -17,4 +17,10 @@
 	opacity: .6;
 	height: 100vh;
 	z-index: 99;
+}
+
+
+.imgBlock img{
+	width: 100%;
+	height: auto;
 }
