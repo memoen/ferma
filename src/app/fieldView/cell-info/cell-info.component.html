@@ -1,0 +1,19 @@
+<div class="root">
+  <div class="closeItem" (click)="closeItem()"> X </div>
+  <dir class="contentBody">
+    <div> <i class="material-icons">
+			hourglass_full
+		</i> : {{plantInfo.waterLevel}}
+    </div>
+    <div> <i class="material-icons">
+			grade
+		</i> : {{plantInfo.qualityLevel}}
+    </div>
+    <div> <i class="material-icons">
+			filter_drama
+
+		</i> : {{plantInfo.currentPlant.readyStatus}}
+    </div>
+  </dir>
+</div>
+<div class="mask" (click)="closeItem()"></div>

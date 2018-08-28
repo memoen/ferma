@@ -1,0 +1,23 @@
+.root {
+	display: flex;
+	width: 100%;
+	align-content: center;
+	justify-content: space-between;
+	position: fixed;
+	bottom: 0;
+	height: 70px;
+	padding: 10px 10%;
+	background: #3949AB;
+	color: white;
+	font-size: 35px;
+
+}
+
+.root div {
+	
+	padding: 10px 20px;
+	vertical-align: middle;
+}
+.root div:hover{
+	border: 2px solid #eee;
+}

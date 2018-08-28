@@ -1,0 +1,21 @@
+.cellBlock{
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	background: red;
+	border: 1px solid white;
+	    margin-top: -10px;
+}
+
+.rowBreake{
+	clear: both;
+}.root {
+	overflow: scroll;
+}
+
+
+.cellContainer{
+	transform: rotate3d(111,48,26,-45deg);
+	margin-left: 200px;
+}
