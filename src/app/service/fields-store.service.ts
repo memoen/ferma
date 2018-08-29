@@ -1,4 +1,4 @@
-import {Injectable, Inject} from '@angular/core';
+import {Injectable, Inject, Optional} from '@angular/core';
 import {SelectedSeedService} from './selected-seed.service';
 import {Subscription, Subject} from "rxjs";
 
@@ -20,11 +20,6 @@ export class FieldsStoreService {
 }
 
 
-
-
-
-
-
 @Injectable()
 export class Market {
   public productPrice = { /// sell price;
@@ -40,10 +35,8 @@ export class Market {
     Market.instance = this;
   }
 }
+
 new Market();
-
-
-
 
 
 export class Field {
@@ -109,68 +102,77 @@ export class Weather {
 }
 
 
-@Injectable()
-export class Storage {
-  public storage = {};
+
+class Storage {
+  public storage = {
 
 
+  };
+
+  private  waterPrice = 1;
+  private  digPrice =2;
+
+  public  get WaterPrice(){
+    return this.waterPrice;
+  }
+  public  get DigPrice(){
+    return this.digPrice;
+  }
   private money = 1000;
 
-  public get MoneyBalance(){
-    console.log('get');
+  public get MoneyBalance() {
+
     return this.money;
   }
+
   private get Money() {
     return this.money;
   }
 
-  private set Money(money:number) {
+  private set Money(money: number) {
     this.money = money;
     this.pushUpdate();
 
   }
 
 
-  public subject  = new Subject<any>();
+  public subject = new Subject<any>();
 
-  public pushUpdate(){
+  public pushUpdate() {
 
-      this.subject.next(this.Money);
-      console.log(this.money);
-      console.log(this.Money);
+    this.subject.next(this.Money);
+
   }
 
-  public  getUpdate(){
+  public getUpdate() {
 
     return this.subject.asObservable();
   }
 
 
+  private market = Market.instance;
 
-
-  private  market = Market.instance;
 
   public buyProductSeed(seed) {
-    return new Promise((resolve,reject) => {
-        var price = this.market.productPrice[seed];
-        console.log(price);
-        console.log(this.Money);
-        if (price<=this.Money){
-          this.Money -= price;
-          resolve(true);
-        } else{
-          console.log('reject');
-          reject(false);
-        }
+    return new Promise((resolve, reject) => {
+      var price = this.market.productPrice[seed];
+
+      if (price <= this.Money) {
+        this.Money -= price;
+        resolve(true);
+      } else {
+
+        reject(false);
+      }
     })
 
   }
 
-  public sellProduct(product: Plants, quantity: number): boolean {
+  public sellProduct(product, quantity: number): boolean {
 
     if (this.storage[product] >= quantity) {
       this.storage[product] -= quantity;
-      this.money += quantity *this.market.productPrice[product];
+      this.money += quantity * this.market.productPrice[product];
       return true
     }
     return false;
@@ -191,7 +193,48 @@ export class Storage {
 
 
   }
+
+  public  payByWater(litter: number){
+    var currentWaterPrice = this.WaterPrice * litter;
+
+    return new Promise((resolve,reject)=>{
+      if (this.money < currentWaterPrice){
+        reject(false);
+      }
+      else{
+        this.money -= currentWaterPrice;
+        resolve(true);
+      }
+    })
+
+
+  }
+
+  public  payByDig(){
+    var currentPrice = this.DigPrice;
+    return new Promise((resolve,reject)=>{
+      if (this.money<currentPrice){
+        reject(false);
+      }
+      else{
+        this.money -= currentPrice;
+        resolve(true);
+      }
+    })
+  }
+
+
+
+
+
+
+
+
+
+
 }
+
+export const staticStorage = new Storage();
 
 
 
@@ -208,10 +251,10 @@ class FieldCell {
   index;
   subscripton: Subscription;
 
-  constructor(i, private globalStorages:Storage) {
+  constructor(i) {
 
-      console.log(this.globalStorages);
-    this.globalStorage = globalStorages;
+
+    this.globalStorage = staticStorage;
 
     this.dayTimer = DayTimer.instance;
 
@@ -238,7 +281,7 @@ class FieldCell {
 
   addGrows(weather: Weather) {
 
-    this.putWater(weather.rain);
+    this.addWater(weather.rain);
     var growSpeed = this.currentPlant.basicDeltaGrow;
     var growNeed = this.currentPlant.growPeriad;
 
@@ -248,10 +291,29 @@ class FieldCell {
 
 
   public putWater(ml: number) {
-    this.waterLevel += ml;
-    if (this.waterLevel > 100) {
+
+    ///87
+
+    if (this.waterLevel  +ml> 100) {
+      ml = 100 - this.waterLevel;
+    }
+    staticStorage.payByWater(ml).then(()=>{
+    this.addWater(ml);
+
+    },(err)=>{
+      console.log(err);
+      console.log('no more monney');
+    });
+
+  }
+
+
+  private addWater(ml:number){
+    if (this.waterLevel> 100) {
+      ml = 0;
       this.waterLevel = 100;
     }
+    this.waterLevel += ml;
 
   }
 
@@ -260,13 +322,13 @@ class FieldCell {
     if (this.currentPlant.name == 'ground') {
 
       this.globalStorage.buyProductSeed(seed).then(
-        ()=>{
-    console.log('planted');
+        () => {
+          console.log('planted');
 
-      this.currentPlant = new Plant(getPlantTypeByName[seed]);
+          this.currentPlant = new Plant(getPlantTypeByName[seed]);
         },
-        (err)=>{
-         console.log(err);
+        (err) => {
+          console.log(err);
           console.log('no more money');
         }
       )
@@ -278,6 +340,10 @@ class FieldCell {
 
   public digPlant() {
 
+    if (this.currentPlant.name !== 'ground'){
+      staticStorage.payByDig().then(()=>{
+
+
     if (this.currentPlant.readyStatus === 100) {
       this.globalStorage.addToStorage({name: this.currentPlant.name, quantity: this.currentPlant.basicQuantity});
       this.currentPlant = new Plant(Plants.ground);
@@ -285,7 +351,11 @@ class FieldCell {
     } else {
       this.currentPlant = new Plant(Plants.ground);
     }
+      },()=>{
+        console.log('no more money');
+      });
 
+    }
 
   }
 

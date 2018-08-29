@@ -2,7 +2,7 @@ import {Component, OnInit, ChangeDetectorRef, SimpleChange, OnChanges,Applicatio
 import {Subscription} from 'rxjs';
 import { FormsModule }   from '@angular/forms';
 import  {VieldViewStateService,ActionType} from '../../service/vield-view-state.service';
-import {getPlantInfoByName,getPlantTypeByName, Storage} from '../../service/fields-store.service';
+import {getPlantInfoByName,getPlantTypeByName,staticStorage} from '../../service/fields-store.service';
 import  {SelectedSeedService} from '../../service/selected-seed.service';
 
 @Component({
@@ -10,27 +10,31 @@ import  {SelectedSeedService} from '../../service/selected-seed.service';
   templateUrl: './side-filter.component.html',
   styleUrls: ['./side-filter.component.css']
 })
-export class SideFilterComponent implements OnChanges {
+export class SideFilterComponent implements OnInit {
 
 
   activeTab;
-  storage;
+  Storage;
 
   moneyUpdateSubscribe:Subscription;
+
+
+
+
   constructor(private viewFieldState:VieldViewStateService,
     private selectedSeed:SelectedSeedService,
 
               private gdr:ChangeDetectorRef,
               private aref:ApplicationRef,
-              private  storages:Storage,
+
               ) {
 
-    this.storage = storages;
-    console.log(storages);
+
+
   this.activeTab = viewFieldState;
   var context = this;
 
-
+    this.Storage = staticStorage
 
 
   }
@@ -45,12 +49,13 @@ export class SideFilterComponent implements OnChanges {
     }
 
 
-    this.moneyUpdateSubscribe =  this.storage.getUpdate().subscribe((money)=>{
+    console.log(staticStorage);
+    this.moneyUpdateSubscribe =  this.Storage.getUpdate().subscribe((money)=>{
 
-
+      console.log(money);
      this.refreshModel();
     })
-    console.log(this.moneyUpdateSubscribe);
+
 
 
 
@@ -59,39 +64,37 @@ export class SideFilterComponent implements OnChanges {
   moneyBalance;
   refreshModel(){
 
-    this.moneyBalance = this.storage.MoneyBalance ;
-    console.log(this.storage);
+    this.moneyBalance = this.Storage.MoneyBalance ;
+
 
   }
 
 
 
+clearMaskGlobal(){
+  this.viewFieldState.GuiFilter = 'none';
+  this.localFilter.dig = false;
+  this.localFilter.water = false;
+  this.localFilter.plant = false;
+}
 
-  ngOnChanges(){
-    console.log('3');
-  }
-a;
-  ngDoCheck(){
-    console.log(8);
-    this.a +=8;
-  }
 
   setAction(type:string){
   	var action:ActionType;
   	if(this.viewFieldState.Status == type) {
   		action = ActionType.none;
-      this.viewFieldState.GuiFilter = 'none';
-      this.localFilter.dig = false;
-      this.localFilter.water = false;
-      this.localFilter.plant = false;
+      this.clearMaskGlobal();
 
   	}else if (type == 'plant') {
   		action = ActionType.plant;
+      this.clearMaskGlobal();
   	}else if(type =='water'){
   		action = ActionType.water;
+      this.clearMaskGlobal();
 
   	}else if(type =='dig'){
   		action = ActionType.dig;
+      this.clearMaskGlobal();
 
   	}
 

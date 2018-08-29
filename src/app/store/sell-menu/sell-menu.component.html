@@ -1,0 +1,27 @@
+<div class="root">
+  <div class="close" (click)="closeSellWindow()"> <i class="material-icons">
+    close
+  </i></div>
+
+ <h3>
+   Sell Menu
+ </h3>
+
+  <div class="nameItem"> Name: {{sellProduct.name}} </div>
+  <div class="nameItem"> Price: {{sellProduct.price | currency}} </div>
+  <div class="nameItem"> In Stock: {{sellProduct.quantity}} </div>
+
+  <div class="inputQuantity">
+
+    <input type="text" [(ngModel)]="ToSellQ" (keyUp)="checkSellLimit()">
+  </div>
+
+
+  <button (click)="sellAll()" > SellAll</button>
+  <button (click)="confirmSell()" > Confirm</button>
+
+
+</div>
+
+
+<div class="fullMask"></div>

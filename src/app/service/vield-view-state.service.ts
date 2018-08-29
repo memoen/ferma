@@ -18,7 +18,7 @@ export class VieldViewStateService {
    return this.guiFilter;
  }
  public set GuiFilter(val){
-   console.log(val);
+
  	this.guiFilter = val;
 
 

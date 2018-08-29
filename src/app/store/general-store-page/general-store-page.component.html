@@ -1,3 +1,42 @@
-<p>
-  general-store-page works!
-</p>
+<div class="root">
+
+
+  <h3>Storage</h3>
+
+  <div class="container">
+
+    <div class="row">
+
+
+      <div class="col-md-4" *ngFor="let item of myPlantArr; let i = index">
+        <div  *ngIf="item.quantity > 0">
+
+
+        <div class="item__header"> {{i}} </div>
+        <div class="item_name"> {{item.name}} </div>
+
+        <div class="item__img">
+          <img [src]="item.src" alt="" class="img-fluid">
+        </div>
+
+        <div class="item_stock"> In Stock: {{item.quantity}} </div>
+        <div class="item__price"> Basic price: {{item.price| currency}} </div>
+
+
+        <button (click)="click__sellButton(item)" >Sell </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="isShowedSellMenu === true">
+
+
+
+
+<app-sell-menu [productToSell]="currentSellSelect" (end)="onEndSell()"> </app-sell-menu>
+</div>
