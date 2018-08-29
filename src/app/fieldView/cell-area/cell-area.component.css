@@ -16,6 +16,6 @@
 
 
 .cellContainer{
-	transform: rotate3d(111,48,26,-45deg);
+	/*transform: rotate3d(111,48,26,-45deg);*/
 	margin-left: 200px;
 }

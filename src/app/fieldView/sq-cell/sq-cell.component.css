@@ -1,7 +1,23 @@
-.root img{
+ .imgBlock img{
 	width: 150%;
 	height: auto;
 	overflow: hidden;
 }
 .root {
+  position: relative;
 	}
+
+.digStatus, .waterStatus{
+  text-align: center;
+  background: white;
+  opacity: .8;
+  color: #000;
+  padding-top: 40px;
+  z-index: 3;
+  width: 100px;
+  height: 100px;
+  vertical-align: middle;
+
+  position: absolute;
+  top: 0;
+}

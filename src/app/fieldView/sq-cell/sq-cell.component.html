@@ -1,5 +1,17 @@
 <div class="root" (click)="click__cell()">
-	
-	<img [src]="cellObj.currentPlant.src">
+
+  <div *ngIf="guiFilterType === 'none' || true" class="imgBlock">
+
+    <img [src]="cellObj.currentPlant.src">
+  </div>
+
+
+  <div *ngIf="guiFilterType === 'dig'" class="digStatus">
+    {{cellObj.currentPlant.readyStatus|number:'1.2-2'}} %
+  </div>
+
+  <div *ngIf="guiFilterType === 'water'" class="waterStatus">
+    {{cellObj.waterLevel|number:'1.2-2'}} %
+  </div>
 
 </div> 

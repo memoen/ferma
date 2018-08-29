@@ -2,7 +2,27 @@
 	
 
 	<h3>Filter</h3>
+
+
+  <div class="constainer-fluid">
+    <h4>Money</h4>
+    {{storage.MoneyBalance}}
+  </div>
+
+
+  <div class="container">
+
+    <button routerLink="/storage" >Show Store</button>
+  </div>
+
+
+
+
+
+
+
 <div class="container-fluid">
+	<h4>mode</h4>
 	<div class="row modeState">
 		
 		<div class="col-md-4" (click)="setAction('plant')" [ngClass]="{highlight: this.viewFieldState.Status == 'plant'}" >
@@ -33,7 +53,7 @@
  </div>
 
 
-<div class="selectSeed" *ngIf="this.viewFieldState.Status == 'plant'"> 
+<div class="selectSeed" *ngIf="activeTab.Status === 'plant'">
 	<h4> Plants</h4>
 
 	<div class="type" *ngFor='let row of seedAtlas' (click)="setActiveSeed(row.name)" [ngClass]="{highlightX: selectedSeed.seed ==  row.name}">
@@ -50,6 +70,27 @@
 
 		</div>
 	</div>
+
+</div>
+
+<div class="selectDig" *ngIf="activeTab.Status === 'dig'">
+
+
+
+	price: 1$
+
+	<input type="checkbox" name=""  (click)="click__DigBox()">
+
+</div>
+<div class="selectWater" *ngIf="activeTab.Status == 'water'">
+	price:1.5$
+	<input type="checkbox" name=""  (click)="click__WaterBox()">
+</div>
+
+
+<div class="filterList">
+	
+
 
 </div>
 

@@ -6,4 +6,9 @@ import { Injectable } from '@angular/core';
 export class SeedService {
 
   constructor() { }
+  private money = 10;
+  public deltaMoney(num){
+    this.money +=num;
+  }
+
 }
