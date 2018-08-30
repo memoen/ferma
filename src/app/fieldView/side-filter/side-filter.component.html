@@ -1,18 +1,19 @@
 <div class="root">
 	
 
-	<h3>Filter</h3>
+	<h3 class="mainHeader">Filter</h3>
 
 
-  <div class="constainer-fluid">
-    <h4>Money</h4>
-    {{Storage.MoneyBalance}}
+  <div class="constainer-fluid moneyBlock">
+    <h4>Balance</h4>
+    {{Storage.MoneyBalance | currency}}
   </div>
 
 
-  <div class="container">
+  <div class="container-fluid storageButton">
 
-    <button routerLink="/storage" >Show Store</button>
+    <button routerLink="/storage" class="bassicBtn" >Show Store</button>
+
   </div>
 
 
@@ -21,7 +22,7 @@
 
 
 
-<div class="container-fluid">
+<div class="container-fluid editeMode">
 	<h4>mode</h4>
 	<div class="row modeState">
 		
@@ -53,7 +54,7 @@
  </div>
 
 
-<div class="selectSeed" *ngIf="activeTab.Status === 'plant'">
+<div class="selectSeed dropDownList" *ngIf="activeTab.Status === 'plant'">
 	<h4> Plants</h4>
 
 	<div class="type" *ngFor='let row of seedAtlas' (click)="setActiveSeed(row.name)" [ngClass]="{highlightX: selectedSeed.seed ==  row.name}">
@@ -73,18 +74,34 @@
 
 </div>
 
-<div class="selectDig" *ngIf="activeTab.Status === 'dig'">
+<div class="selectDig dropDownList" *ngIf="activeTab.Status === 'dig'">
 
 
 
-	price: 1$
+	<div class="actionPrice">
 
-	<input type="checkbox" name=""  (click)="click__DigBox()">
+  Price: 1.0$
+  </div>
+
+  <div class="actionInput">
+
+    <mat-checkbox (click)="click__DigBox()">Activate filter</mat-checkbox>
+
+  </div>
 
 </div>
-<div class="selectWater" *ngIf="activeTab.Status == 'water'">
-	price:1.5$
-	<input type="checkbox" name=""  (click)="click__WaterBox()">
+<div class="selectWater dropDownList" *ngIf="activeTab.Status == 'water'">
+  <div class="actionPrice">
+
+    Price: 1.5$
+  </div>
+
+  <div class="actionInput">
+
+    <mat-checkbox (click)="click__WaterBox()" >Activate filter</mat-checkbox>
+
+
+  </div>
 </div>
 
 

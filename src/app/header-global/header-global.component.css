@@ -1,8 +1,12 @@
 .root{
-	background: #ffca28;
-	color: #444;
+	background: #344955;
+	color: white;
 	text-align: center;
 	font-size: 25px;
 	height: 50px;
 	width: 100%;
+}
+.root h4{
+  vertical-align: middle;
+  padding-top: 10px;
 }

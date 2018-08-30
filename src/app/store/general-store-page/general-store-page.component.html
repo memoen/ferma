@@ -8,8 +8,8 @@
     <div class="row">
 
 
-      <div class="col-md-4" *ngFor="let item of myPlantArr; let i = index">
-        <div  *ngIf="item.quantity > 0">
+      <div class="col-md-4 " *ngFor="let item of inStockMyPlantArr(); let i = index">
+        <div class="productCell">
 
 
         <div class="item__header"> {{i}} </div>
@@ -22,8 +22,11 @@
         <div class="item_stock"> In Stock: {{item.quantity}} </div>
         <div class="item__price"> Basic price: {{item.price| currency}} </div>
 
+          <div class="cellButton">
 
-        <button (click)="click__sellButton(item)" >Sell </button>
+
+        <button (click)="click__sellButton(item)" class="bassicBtn ">Sell </button>
+          </div>
         </div>
 
       </div>

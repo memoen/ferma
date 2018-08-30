@@ -27,6 +27,10 @@ export class Market {
     grass: 3,
     tomato: 10,
     onion: 100,
+    pepper: 120,
+    watermelon: 30,
+    buckwheat: 40
+
 
   };
   static instance;
@@ -105,7 +109,9 @@ export class Weather {
 
 class Storage {
   public storage = {
-
+    tomato: 5,
+    grass: 8,
+    pepper: 3,
 
   };
 
@@ -367,7 +373,10 @@ enum Plants {
   tomato = 'tomato',
   grass = 'grass',
   onion = 'onion',
-  ground = 'ground'
+  ground = 'ground',
+  buckwheat = 'buckwheat',
+  watermelon = 'watermelon',
+  pepper = 'pepper'
 }
 
 
@@ -375,7 +384,13 @@ export var getPlantTypeByName = {
   tomato: Plants.tomato,
   grass: Plants.grass,
   ground: Plants.ground,
-  onion: Plants.onion
+  onion: Plants.onion,
+  watermelon: Plants.watermelon,
+  buckwheat: Plants.buckwheat,
+  pepper: Plants.pepper,
+
+
+
 
 }
 export var getPlantInfoByName = (name: string) => {
@@ -383,6 +398,7 @@ export var getPlantInfoByName = (name: string) => {
   return {
     src: PlantsSrc[name],
     name: name,
+
     price: PlantsObj[name].price,
 
   };
@@ -394,18 +410,22 @@ var PlantsSrc = {
   ground: '../assets/ground.png',
   tomato: '../assets/tomato.png',
   onion: '../assets/onion.png',
+  pepper: '../assets/pepper.png',
+  watermelon: '../assets/watermelon.png',
+  buckwheat: '../assets/buckwheat.png',
+
 }
 
 var PlantsObj = {
   grass: {
-    price: 2,
+    price: Market.instance.productPrice.grass,
     growPeriod: 20,
     basicQuantity: 3,
     basicDeltaGrow: 1,
     text: ' Grass SeedGrass seed involves spreading and sprouting new grass from a bag of seed. It’s more cost-effective than laying sod, but unlike the instant gratification that sod provides, seed takes 5 to 30 days to grow—and can take years to fill in completely.'
   },
   tomato: {
-    price: 5,
+    price: Market.instance.productPrice.tomato,
 
     growPeriod: 2,
     basicDeltaGrow: 1,
@@ -413,9 +433,9 @@ var PlantsObj = {
     text: '-Easy to grow  Produces abundant clusters of smallish, vibrant colored fruitGreat in garden salads'
   },
   ground: {
-    growPeriod: 20,
+    growPeriod: 1,
     basicDeltaGrow: 0,
-    price: 0,
+    price: Market.instance.productPrice.ground,
     basicQuantity: 3,
     text: '-Easy to grow '
   },
@@ -423,8 +443,27 @@ var PlantsObj = {
     growPeriod: 30,
     basicDeltaGrow: 1,
     basicQuantity: 3,
-    price: 80, text: '-Easy to grow, hard to eat '
-  }
+    price: Market.instance.productPrice.onion,
+    text: '-Easy to grow, hard to eat '
+  }, watermelon: {
+    growPeriod: 30,
+    basicDeltaGrow: 1,
+    basicQuantity: 3,
+    price: Market.instance.productPrice.watermelon,
+    text: 'Water and suggar '
+  }, buckwheat: {
+    growPeriod: 60,
+    basicDeltaGrow: 1,
+    basicQuantity: 3,
+    price: Market.instance.productPrice.buckwheat,
+    text: '-Easy to grow, hard to eat '
+  }, pepper: {
+    growPeriod: 40,
+    basicDeltaGrow: 1,
+    basicQuantity: 3,
+    price: Market.instance.productPrice.pepper,
+    text: 'Too hot '
+  },
 }
 
 

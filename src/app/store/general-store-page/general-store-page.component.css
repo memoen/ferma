@@ -1,0 +1,51 @@
+.root{
+  background: #f4f4f4;
+  height: 100vh;
+}
+
+
+
+.productCell{
+  border: 3px solid #f9aa33;
+  margin: 3px;
+  position: relative;
+  padding: 20px;
+  border-radius: 10px;
+  background: #344955;
+  font-weight: 500;
+  color: white;
+}
+
+.item__header{
+  text-align: center;
+  background: #f9aa33;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  vertical-align: middle;
+  color: white;
+  font-weight: 700;
+  position: absolute;
+  right: 10px;
+}
+
+.item_name{
+  margin: -1px;
+  font-weight: 500;
+}
+.item__img{
+
+  height: 200px;
+  overflow: hidden;
+}
+
+.cellButton{
+
+  margin: 20px 10px;
+
+}
+.cellButton button{
+
+  width: 100%;
+  margin: 0;
+}

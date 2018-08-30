@@ -48,8 +48,9 @@ export class SideFilterComponent implements OnInit {
     this.seedAtlas.push(getPlantInfoByName(keys[i]));
     }
 
+    console.log(this.seedAtlas);
 
-    console.log(staticStorage);
+
     this.moneyUpdateSubscribe =  this.Storage.getUpdate().subscribe((money)=>{
 
       console.log(money);

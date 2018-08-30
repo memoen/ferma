@@ -58,6 +58,12 @@ export class GeneralStorePageComponent implements OnInit {
 
 
 
+  inStockMyPlantArr(){
+    return this.myPlantArr.filter(item=>{
+      return item.quantity >0;
+    })
+  }
+
 
 
 

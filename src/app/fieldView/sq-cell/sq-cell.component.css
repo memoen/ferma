@@ -10,7 +10,7 @@
 .digStatus, .waterStatus{
   text-align: center;
   background: white;
-  opacity: .8;
+  opacity: .6;
   color: #000;
   padding-top: 40px;
   z-index: 3;
@@ -21,3 +21,4 @@
   position: absolute;
   top: 0;
 }
+
