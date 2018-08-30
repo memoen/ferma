@@ -4,6 +4,10 @@ import { FormsModule }   from '@angular/forms';
 import  {VieldViewStateService,ActionType} from '../../service/vield-view-state.service';
 import {getPlantInfoByName,getPlantTypeByName,staticStorage} from '../../service/fields-store.service';
 import  {SelectedSeedService} from '../../service/selected-seed.service';
+import {ForceTimeComponent} from '../../force-time/force-time.component';
+
+
+
 
 @Component({
   selector: 'app-side-filter',

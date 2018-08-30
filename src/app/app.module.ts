@@ -10,7 +10,7 @@ import { CellInfoComponent } from './fieldView/cell-info/cell-info.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
-import {FieldsStoreService,DayTimer,Market} from './service/fields-store.service';
+import {FieldsStoreService,Market} from './service/fields-store.service';
 import {CellInfoService} from './service/cell-info.service';
 import {SelectedSeedService} from './service/selected-seed.service';
 import {SeedService} from './service/storage/seed.service';
@@ -21,6 +21,7 @@ import { GeneralStorePageComponent } from './store/general-store-page/general-st
 import { MarketPageViewComponent } from './market-page-view/market-page-view.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SellMenuComponent } from './store/sell-menu/sell-menu.component';
+import { ForceTimeComponent } from './force-time/force-time.component';
 
 
 var links:Routes =[
@@ -41,7 +42,8 @@ var links:Routes =[
     SideFilterComponent,
     GeneralStorePageComponent,
     MarketPageViewComponent,
-    SellMenuComponent
+    SellMenuComponent,
+    ForceTimeComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,7 @@ var links:Routes =[
   ],
   providers: [FieldsStoreService,CellInfoService,
     VieldViewStateService,SelectedSeedService,
-    SeedService,DayTimer,Market,StorePageView],
+    SeedService,Market,StorePageView],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

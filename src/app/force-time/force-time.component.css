@@ -1,0 +1,19 @@
+.root {
+  background: #333333;
+  color: white;
+  height: 40px;
+  text-align: center;
+}
+.timeState{
+  display: inline-block;
+  width: 25%;
+  padding: 10px;
+  vertical-align: middle;
+
+}
+
+.active{
+  background: #eee;
+  color: black
+;
+}

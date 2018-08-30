@@ -1,6 +1,6 @@
-import {Injectable, Inject, Optional} from '@angular/core';
-import {SelectedSeedService} from './selected-seed.service';
-import {Subscription, Subject} from "rxjs";
+import {Injectable} from '@angular/core';
+import {Subject, Subscription} from "rxjs";
+import {dayTimerInstance} from "./timeService/time-controller.service";
 
 @Injectable()
 export class FieldsStoreService {
@@ -63,38 +63,6 @@ export class Field {
 }
 
 
-@Injectable()
-export class DayTimer {
-  deltaTick: number = 1000;
-  dayTick = () => {
-    this.setAction(new Weather(30, 2));
-
-  }
-  static instance: DayTimer
-
-  constructor() {
-
-
-    DayTimer.instance = this;
-    setInterval(this.dayTick, this.deltaTick);
-
-  }
-
-  private subject = new Subject();
-
-  public getAction() {
-    return this.subject.asObservable();
-  }
-
-  private setAction(data) {
-    this.subject.next(data)
-  }
-
-}
-
-new DayTimer();
-
-
 export class Weather {
   rain: number;
   temperature: number;
@@ -106,7 +74,6 @@ export class Weather {
 }
 
 
-
 class Storage {
   public storage = {
     tomato: 5,
@@ -115,15 +82,17 @@ class Storage {
 
   };
 
-  private  waterPrice = 1;
-  private  digPrice =2;
+  private waterPrice = 1;
+  private digPrice = 2;
 
-  public  get WaterPrice(){
+  public get WaterPrice() {
     return this.waterPrice;
   }
-  public  get DigPrice(){
+
+  public get DigPrice() {
     return this.digPrice;
   }
+
   private money = 1000;
 
   public get MoneyBalance() {
@@ -200,14 +169,14 @@ class Storage {
 
   }
 
-  public  payByWater(litter: number){
+  public payByWater(litter: number) {
     var currentWaterPrice = this.WaterPrice * litter;
 
-    return new Promise((resolve,reject)=>{
-      if (this.money < currentWaterPrice){
+    return new Promise((resolve, reject) => {
+      if (this.money < currentWaterPrice) {
         reject(false);
       }
-      else{
+      else {
         this.money -= currentWaterPrice;
         resolve(true);
       }
@@ -216,13 +185,13 @@ class Storage {
 
   }
 
-  public  payByDig(){
+  public payByDig() {
     var currentPrice = this.DigPrice;
-    return new Promise((resolve,reject)=>{
-      if (this.money<currentPrice){
+    return new Promise((resolve, reject) => {
+      if (this.money < currentPrice) {
         reject(false);
       }
-      else{
+      else {
         this.money -= currentPrice;
         resolve(true);
       }
@@ -230,30 +199,18 @@ class Storage {
   }
 
 
-
-
-
-
-
-
-
-
 }
 
 export const staticStorage = new Storage();
 
 
-
-
-
-
 class FieldCell {
 
-  waterLevel = 50;
+  waterLevel = 5;
   qualityLevel = 50;
   randI = Math.round(Math.random());
   currentPlant: Plant;
-  dayTimer;
+  dayTimer = dayTimerInstance;
   index;
   subscripton: Subscription;
 
@@ -261,8 +218,6 @@ class FieldCell {
 
 
     this.globalStorage = staticStorage;
-
-    this.dayTimer = DayTimer.instance;
 
 
     this.index = i;
@@ -278,6 +233,7 @@ class FieldCell {
     this.currentPlant = new Plant(arg);
 
     this.subscripton = this.dayTimer.getAction().subscribe((data: Weather) => {
+
       this.addGrows(data);
     });
 
@@ -291,7 +247,21 @@ class FieldCell {
     var growSpeed = this.currentPlant.basicDeltaGrow;
     var growNeed = this.currentPlant.growPeriad;
 
-    this.currentPlant.addReadyStatus(growSpeed / growNeed * 100);
+
+    if (this.waterLevel < this.currentPlant.basicWaterUsage) {
+      //negative effect
+      this.currentPlant.setNegativeEffect();
+    } else {
+
+
+      this.waterLevel -= this.currentPlant.basicWaterUsage;
+
+
+      this.currentPlant.addReadyStatus(growSpeed / growNeed * 100);
+    }
+
+
+    //87
 
   }
 
@@ -300,13 +270,13 @@ class FieldCell {
 
     ///87
 
-    if (this.waterLevel  +ml> 100) {
+    if (this.waterLevel + ml > 100) {
       ml = 100 - this.waterLevel;
     }
-    staticStorage.payByWater(ml).then(()=>{
-    this.addWater(ml);
+    staticStorage.payByWater(ml).then(() => {
+      this.addWater(ml);
 
-    },(err)=>{
+    }, (err) => {
       console.log(err);
       console.log('no more monney');
     });
@@ -314,8 +284,8 @@ class FieldCell {
   }
 
 
-  private addWater(ml:number){
-    if (this.waterLevel> 100) {
+  private addWater(ml: number) {
+    if (this.waterLevel > 100) {
       ml = 0;
       this.waterLevel = 100;
     }
@@ -346,18 +316,18 @@ class FieldCell {
 
   public digPlant() {
 
-    if (this.currentPlant.name !== 'ground'){
-      staticStorage.payByDig().then(()=>{
+    if (this.currentPlant.name !== 'ground') {
+      staticStorage.payByDig().then(() => {
 
 
-    if (this.currentPlant.readyStatus === 100) {
-      this.globalStorage.addToStorage({name: this.currentPlant.name, quantity: this.currentPlant.basicQuantity});
-      this.currentPlant = new Plant(Plants.ground);
+        if (this.currentPlant.readyStatus === 100) {
+          this.globalStorage.addToStorage({name: this.currentPlant.name, quantity: this.currentPlant.basicQuantity});
+          this.currentPlant = new Plant(Plants.ground);
 
-    } else {
-      this.currentPlant = new Plant(Plants.ground);
-    }
-      },()=>{
+        } else {
+          this.currentPlant = new Plant(Plants.ground);
+        }
+      }, () => {
         console.log('no more money');
       });
 
@@ -390,8 +360,6 @@ export var getPlantTypeByName = {
   pepper: Plants.pepper,
 
 
-
-
 }
 export var getPlantInfoByName = (name: string) => {
 
@@ -413,6 +381,7 @@ var PlantsSrc = {
   pepper: '../assets/pepper.png',
   watermelon: '../assets/watermelon.png',
   buckwheat: '../assets/buckwheat.png',
+  deadPlant: '../assets/plantDead.png',
 
 }
 
@@ -420,68 +389,154 @@ var PlantsObj = {
   grass: {
     price: Market.instance.productPrice.grass,
     growPeriod: 20,
+    negativeEffectSensative: 50,
     basicQuantity: 3,
     basicDeltaGrow: 1,
+    bassicWaterUsage: 3,
     text: ' Grass SeedGrass seed involves spreading and sprouting new grass from a bag of seed. It’s more cost-effective than laying sod, but unlike the instant gratification that sod provides, seed takes 5 to 30 days to grow—and can take years to fill in completely.'
   },
   tomato: {
     price: Market.instance.productPrice.tomato,
-
+    negativeEffectSensative: 5,
     growPeriod: 2,
     basicDeltaGrow: 1,
+    bassicWaterUsage: 3,
     basicQuantity: 3,
     text: '-Easy to grow  Produces abundant clusters of smallish, vibrant colored fruitGreat in garden salads'
   },
   ground: {
     growPeriod: 1,
     basicDeltaGrow: 0,
+    bassicWaterUsage: 1,
     price: Market.instance.productPrice.ground,
+    negativeEffectSensative: 0,
     basicQuantity: 3,
     text: '-Easy to grow '
   },
   onion: {
     growPeriod: 30,
     basicDeltaGrow: 1,
+    bassicWaterUsage: 3,
     basicQuantity: 3,
     price: Market.instance.productPrice.onion,
+    negativeEffectSensative: 5,
     text: '-Easy to grow, hard to eat '
   }, watermelon: {
     growPeriod: 30,
     basicDeltaGrow: 1,
+    bassicWaterUsage: 3,
     basicQuantity: 3,
     price: Market.instance.productPrice.watermelon,
+    negativeEffectSensative: 5,
     text: 'Water and suggar '
   }, buckwheat: {
     growPeriod: 60,
     basicDeltaGrow: 1,
+    bassicWaterUsage: 3,
     basicQuantity: 3,
     price: Market.instance.productPrice.buckwheat,
+    negativeEffectSensative: 5,
     text: '-Easy to grow, hard to eat '
   }, pepper: {
     growPeriod: 40,
     basicDeltaGrow: 1,
     basicQuantity: 3,
+    bassicWaterUsage: 3,
     price: Market.instance.productPrice.pepper,
-    text: 'Too hot '
+    text: 'Too hot ',
+    negativeEffectSensative: 5,
   },
 }
 
 
 class Plant {
-  name;
-  readyStatus = 0;
-  growPeriad;
-  src;
-  price;
-  basicDeltaGrow;
-  text;
-  basicQuantity;
-  public addReadyStatus = (delta) => {
-    this.readyStatus += delta;
-    if (this.readyStatus > 100) {
-      this.readyStatus = 100;
+  private health: number = 100;
+
+  public getHealth() {
+    return this.health;
+  }
+
+  private get Health() {
+    return this.health;
+  }
+
+
+  private set Health(value: number) {
+    if (value > 100) {
+      throw new Error('too big health');
+    }
+
+    this.health = value;
+    if (this.health <= 0) {
+      this.initDead();
     }
   }
+
+
+  readonly name: string;
+  private readyStat: number = 0;
+
+  public get readyStatus() {
+    return this.readyStat;
+  }
+
+  private set ReadyStatus(value: number) {
+    if (value > 100) {
+      value = 100
+    }
+
+    this.readyStat = value;
+  }
+
+  private get ReadyStatus() {
+    return this.readyStat;
+  }
+
+  readonly growPeriad: number;
+  private src: string;
+  public get Src(){
+    return this.src;
+  };
+  private setSrc(val:string){
+    this.src = val;
+  }
+
+
+  readonly price: number;
+  basicDeltaGrow: number;
+  readonly text: string;
+  readonly basicQuantity: number;
+  readonly basicWaterUsage: number;
+  private isAlive: boolean = true;
+
+  public get IsAlive(){
+    return this.isAlive;
+  }
+
+  readonly negativeEffectSensative: number;
+
+  public addReadyStatus = (delta) => {
+    if (this.isAlive) {
+      this.ReadyStatus += delta;
+    }
+  }
+
+  public setNegativeEffect = () => {
+    if(this.isAlive){
+
+    this.Health -= this.negativeEffectSensative;
+
+    }
+  }
+
+  private initDead = () => {
+    this.isAlive = false;
+    this.ReadyStatus = 0;
+    this.basicDeltaGrow = 0;
+    this.setSrc(PlantsSrc.deadPlant);
+
+  }
+
 
   constructor(name: Plants) {
 
@@ -492,6 +547,8 @@ class Plant {
     this.growPeriad = PlantsObj[name].growPeriod;
     this.basicDeltaGrow = PlantsObj[name].basicDeltaGrow;
     this.basicQuantity = PlantsObj[name].basicQuantity;
+    this.basicWaterUsage = PlantsObj[name].bassicWaterUsage;
+    this.negativeEffectSensative = PlantsObj[name].negativeEffectSensative;
 
 
   }

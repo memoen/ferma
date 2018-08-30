@@ -3,7 +3,8 @@ import  {CellInfoService} from '../../service/cell-info.service';
 import  {VieldViewStateService,ActionType} from '../../service/vield-view-state.service';
 import { SelectedSeedService } from '../../service/selected-seed.service';
 import {Subscription} from "rxjs";
-import {DayTimer, Weather} from '../../service/fields-store.service';
+import {Weather} from '../../service/fields-store.service';
+import {dayTimerInstance} from "../../service/timeService/time-controller.service";
 
 @Component({
   selector: 'app-sq-cell',
@@ -50,7 +51,7 @@ export class SqCellComponent implements OnInit {
 
   ngOnInit() {
    let context = this;
-   let dayTimer = DayTimer.instance;
+   let dayTimer = dayTimerInstance;
 
     this.subscripton = dayTimer.getAction().subscribe((data: Weather) => {
       this.updateModel();
