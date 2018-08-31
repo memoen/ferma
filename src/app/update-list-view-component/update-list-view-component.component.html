@@ -1,0 +1,23 @@
+<div class="root">
+
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 updateCell" *ngFor="let item of updateList" (click)="initUpdateItem(item)" >
+        <div>
+
+
+          <img [src]="item.updateSrc" alt="" class="img-fluid">
+          <p> {{item.text}}</p>
+        <h2> Price: {{item.Price|currency}}</h2>
+        </div>
+
+
+      </div>
+
+
+
+      </div>
+    </div>
+  </div>

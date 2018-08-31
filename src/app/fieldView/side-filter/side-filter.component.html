@@ -21,6 +21,9 @@
 
     <button routerLink="/storage" class="bassicBtn" >Show Store</button>
 
+
+    <button routerLink="/updates" class="bassicBtn" >Updates</button>
+
   </div>
 
 
@@ -100,7 +103,7 @@
 <div class="selectWater dropDownList" *ngIf="activeTab.Status == 'water'">
   <div class="actionPrice">
 
-    Price: 1.5$
+    Price:{{Storage.WaterPrice |currency}}
   </div>
 
   <div class="actionInput">

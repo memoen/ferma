@@ -3,7 +3,7 @@ import  {CellInfoService} from '../../service/cell-info.service';
 import  {VieldViewStateService,ActionType} from '../../service/vield-view-state.service';
 import { SelectedSeedService } from '../../service/selected-seed.service';
 import {Subscription} from "rxjs";
-import {Weather} from '../../service/fields-store.service';
+import {Weather} from '../../service/timeService/time-controller.service';
 import {dayTimerInstance} from "../../service/timeService/time-controller.service";
 
 @Component({

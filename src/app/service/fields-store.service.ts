@@ -1,21 +1,31 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {Subject, Subscription} from "rxjs";
-import {dayTimerInstance} from "./timeService/time-controller.service";
+import {dayTimerInstance, Weather} from "./timeService/time-controller.service";
 
 @Injectable()
 export class FieldsStoreService {
 
   private availableFields: Field[] = [new Field(4, 5)];
 
+
+
+
   public get AvailableFields() {
     return this.availableFields;
   }
+
+
 
   public getFieldByIndex(index: number): Field {
     return this.AvailableFields[index];
   }
 
+  public toString(){
+    return 'nthotuho';
+  }
+
   constructor() {
+
   }
 }
 
@@ -63,17 +73,6 @@ export class Field {
 }
 
 
-export class Weather {
-  rain: number;
-  temperature: number;
-
-  constructor(t, rain) {
-    this.temperature = t;
-    this.rain = rain;
-  }
-}
-
-
 class Storage {
   public storage = {
     tomato: 5,
@@ -83,6 +82,10 @@ class Storage {
   };
 
   private waterPrice = 1;
+
+  public  set WaterPrice(value){
+  this.waterPrice = value;
+  }
   private digPrice = 2;
 
   public get WaterPrice() {
@@ -196,6 +199,20 @@ class Storage {
         resolve(true);
       }
     })
+  }
+
+
+  public buyItem(price:number){
+    return new Promise((resolve,reject)=>{
+      if (this.Money<price){
+        reject();
+      }else{
+        this.Money -= price;
+        resolve(true);
+      }
+
+    })
+
   }
 
 

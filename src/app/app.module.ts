@@ -22,14 +22,23 @@ import { MarketPageViewComponent } from './market-page-view/market-page-view.com
 import { RouterModule, Routes } from '@angular/router';
 import { SellMenuComponent } from './store/sell-menu/sell-menu.component';
 import { ForceTimeComponent } from './force-time/force-time.component';
+import { FactoryViewPageComponent } from './factory-view-page/factory-view-page.component';
+import { FactoryFieldComponent } from './factoryViewPage/factory-field/factory-field.component';
+import { FactoryListComponent } from './factoryViewPage/factory-list/factory-list.component';
+import { UpdateListComponent } from './update-list/update-list.component';
+import { UpdateListViewComponentComponent } from './update-list-view-component/update-list-view-component.component';
 
 
 var links:Routes =[
-  {path: 'field', component: PageFieldViewComponent},
+  {path: 'field/:id', component: PageFieldViewComponent},
   {path: 'market', component: MarketPageViewComponent},
+  {path:'updates', component: UpdateListViewComponentComponent},
+  {path: 'factory', component: FactoryViewPageComponent},
   {path: 'storage', component: GeneralStorePageComponent},
-  {path: '', redirectTo: '/field' ,pathMatch: 'full'},
+  {path: '', redirectTo: '/storage' ,pathMatch: 'full'},
 ]
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +52,12 @@ var links:Routes =[
     GeneralStorePageComponent,
     MarketPageViewComponent,
     SellMenuComponent,
-    ForceTimeComponent
+    ForceTimeComponent,
+    FactoryViewPageComponent,
+    FactoryFieldComponent,
+    FactoryListComponent,
+    UpdateListComponent,
+    UpdateListViewComponentComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Subject} from "rxjs";
-import {Weather} from "../fields-store.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +10,21 @@ export class TimeControllerService {
   setSpeed(val:number){
     this.speed = val;
     this.dayTimer.DeltaTick = this.dayTimer.basicDeltaTick / this.speed;
-   
+
   }
   dayTimer = dayTimerInstance;
 
   constructor() { }
+}
+
+export class Weather {
+  rain: number;
+  temperature: number;
+
+  constructor(t, rain) {
+    this.temperature = t;
+    this.rain = rain;
+  }
 }
 
 export class DayTimer {
