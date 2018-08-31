@@ -5,7 +5,9 @@
 	<div class="cellBlock" *ngFor="let cell of cellOfField, index as i" >
 		<div>
 			
-		<app-sq-cell [cellInfo]='cell'></app-sq-cell>
+		<app-sq-cell [cellInfo]='cell' *ngIf="mode === 'ground'" ></app-sq-cell>
+
+      <app-factory-sq [cellInfo]='cell' *ngIf="mode === 'factory'" ></app-factory-sq>
 
 
 <!--rowBreake: i % currentField.width == 0}-->

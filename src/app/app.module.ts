@@ -27,6 +27,7 @@ import { FactoryFieldComponent } from './factoryViewPage/factory-field/factory-f
 import { FactoryListComponent } from './factoryViewPage/factory-list/factory-list.component';
 import { UpdateListComponent } from './update-list/update-list.component';
 import { UpdateListViewComponentComponent } from './update-list-view-component/update-list-view-component.component';
+import { FactorySqComponent } from './factoryViewPage/factory-sq/factory-sq.component';
 
 
 var links:Routes =[
@@ -57,7 +58,8 @@ var links:Routes =[
     FactoryFieldComponent,
     FactoryListComponent,
     UpdateListComponent,
-    UpdateListViewComponentComponent
+    UpdateListViewComponentComponent,
+    FactorySqComponent
   ],
   imports: [
     BrowserModule,

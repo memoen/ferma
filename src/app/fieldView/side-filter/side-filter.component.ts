@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectorRef, SimpleChange, OnChanges,ApplicationRef} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, SimpleChange, OnChanges,ApplicationRef, Input} from '@angular/core';
 import {Subscription} from 'rxjs';
 import { FormsModule }   from '@angular/forms';
 import  {VieldViewStateService,ActionType} from '../../service/vield-view-state.service';
@@ -16,6 +16,7 @@ import {ForceTimeComponent} from '../../force-time/force-time.component';
 })
 export class SideFilterComponent implements OnInit {
 
+  @Input('mode') mode;
 
   activeTab;
   Storage;

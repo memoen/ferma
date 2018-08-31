@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import {FactorySqComponent} from '../../factoryViewPage/factory-sq/factory-sq.component';
 // import {CellInfoService} from
 
 
@@ -13,12 +13,13 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export class CellAreaComponent implements OnInit {
 @Input('field') currentField;
+@Input('mode') mode;
 
   cellOfField 
   constructor() { }
 
   ngOnInit() {
-  	console.log(this.currentField);
+  	console.log(this.mode);
  this.cellOfField = this.currentField.linearCellArr;
   	
   }

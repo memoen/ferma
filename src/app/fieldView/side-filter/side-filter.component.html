@@ -17,12 +17,19 @@
   </div>
 
 
+
+
+  <div *ngIf="mode === 'ground'">
+
+
   <div class="container-fluid storageButton">
 
     <button routerLink="/storage" class="bassicBtn" >Show Store</button>
 
 
     <button routerLink="/updates" class="bassicBtn" >Updates</button>
+
+    <button routerLink="/factory" class="bassicBtn" >Factory</button>
 
   </div>
 
@@ -90,7 +97,7 @@
 
 	<div class="actionPrice">
 
-  Price: 1.0$
+  Price: {{Storage.DigPrice | currency}}
   </div>
 
   <div class="actionInput">
@@ -123,6 +130,17 @@
 
 
 
+
+
+</div>
+
+
+
+  <div *ngIf="mode === 'factory'">
+  <h1>Factory</h1>
+
+
+  </div>
 
 
 </div>

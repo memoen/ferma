@@ -96,6 +96,10 @@ class Storage {
     return this.digPrice;
   }
 
+  public  set DigPrice(val){
+    this.digPrice = val;
+  }
+
   private money = 1000;
 
   public get MoneyBalance() {
@@ -402,7 +406,8 @@ var PlantsSrc = {
 
 }
 
-var PlantsObj = {
+
+const PlantsObj = {
   grass: {
     price: Market.instance.productPrice.grass,
     growPeriod: 20,
@@ -464,6 +469,15 @@ var PlantsObj = {
     negativeEffectSensative: 5,
   },
 }
+
+class PlantObjUpdater{
+  public  fields = PlantsObj;
+
+
+
+}
+export const plantObjUpdater = new PlantObjUpdater();
+
 
 
 class Plant {

@@ -5,12 +5,15 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-4 updateCell" *ngFor="let item of updateList" (click)="initUpdateItem(item)" >
-        <div>
+        <div class='cellBlock'>
 
+          <div class="updateCellImg">
 
-          <img [src]="item.updateSrc" alt="" class="img-fluid">
-          <p> {{item.text}}</p>
-        <h2> Price: {{item.Price|currency}}</h2>
+          <img [src]="item.updateSrc" alt="" class="img-fluid ">
+          </div>
+          <p class="item_text"> {{item.text}}</p>
+        <h2 class="item_price"> Price: {{item.Price|currency}}</h2>
+          <p class="effectMultipier"> Effect :{{item.DeltaEffectMultipier | percent}}</p>
         </div>
 
 
