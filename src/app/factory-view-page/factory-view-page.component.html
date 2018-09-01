@@ -3,3 +3,7 @@
 
 
 <app-side-filter [mode]="'factory'"> </app-side-filter>
+
+
+<app-factory-console *ngIf="dialogControl.GetStatus() === true"></app-factory-console>
+

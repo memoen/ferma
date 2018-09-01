@@ -1,12 +1,13 @@
 .root {
 	width: 80vw;
-	height: 60vh;
+	height: 80vh;
 	margin-left: 10%;
-	margin-top: 10%;
+	top: 15vh;
 	background: white;
 	position: fixed;
 	z-index: 999;
 	padding: 30px;
+  overflow: scroll;
 }
 .mask{
 	width: 100vw;

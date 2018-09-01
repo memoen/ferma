@@ -3,6 +3,8 @@ import { Component, OnInit ,ChangeDetectorRef} from '@angular/core';
 import {staticStorage,getPlantInfoByName} from '../../service/fields-store.service';
 import {SellMenuComponent} from '../sell-menu/sell-menu.component';
 
+import {getFactoryProductInfoByName} from '../../service/factory/factory-manage.service';
+
 @Component({
   selector: 'app-general-store-page',
   templateUrl: './general-store-page.component.html',
@@ -30,12 +32,31 @@ export class GeneralStorePageComponent implements OnInit {
 
   buildProductModel(){
     var keyPlant = Object.keys(this.storeObj.storage);
-    var plantArr = [];
+    var productItemArr = [];
     for (let i =0; i<keyPlant.length; i++){
-      plantArr[i] = getPlantInfoByName(keyPlant[i]);
-      plantArr[i].quantity = this.storeObj.storage[keyPlant[i]] || 0;
+        var plantmodel = getPlantInfoByName(keyPlant[i]);
+
+      if (plantmodel === undefined){
+        plantmodel =  getFactoryProductInfoByName(keyPlant[i]);
+        console.log(plantmodel);
+
+          if (plantmodel === undefined){
+
+          continue;
+          }
+      }
+
+      productItemArr[i] = plantmodel;
+      productItemArr[i].quantity = this.storeObj.storage[keyPlant[i]] || 0;
     }
-    return plantArr;
+
+
+
+
+
+
+
+    return productItemArr;
   }
 
 

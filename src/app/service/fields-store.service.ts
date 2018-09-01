@@ -1,6 +1,10 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {Subject, Subscription} from "rxjs";
 import {dayTimerInstance, Weather} from "./timeService/time-controller.service";
+declare var alertify: any;
+
+
+
 
 @Injectable()
 export class FieldsStoreService {
@@ -30,7 +34,7 @@ export class FieldsStoreService {
 }
 
 
-@Injectable()
+
 export class Market {
   public productPrice = { /// sell price;
     ground: 0,
@@ -39,18 +43,19 @@ export class Market {
     onion: 100,
     pepper: 120,
     watermelon: 30,
-    buckwheat: 40
+    buckwheat: 40,
+    milk: 10,
 
 
   };
-  static instance;
+
 
   constructor() {
-    Market.instance = this;
+
   }
 }
 
-new Market();
+export const  marketPriceConfig = new Market();
 
 
 export class Field {
@@ -78,9 +83,49 @@ class Storage {
     tomato: 5,
     grass: 8,
     pepper: 3,
+    milk: 4,
 
   };
 
+
+
+
+  public  useItem(itemList){
+    return new Promise((resolve, reject)=>{
+      var instock = true;
+        for (let i = 0; i< itemList.length; i++){
+          if (itemList[i].quantity > this.storage[itemList[i].item]){
+            instock = false;
+            reject( itemList[i].item);
+
+          }
+        }
+
+      if (instock === true){
+
+      for (let i = 0; i< itemList.length; i++){
+        console.log(itemList[i].quantity);
+        this.storage[itemList[i].item] -= itemList[i].quantity;
+
+      }
+
+
+
+        resolve();
+
+      }
+    })
+  }
+
+
+  public pushItem(itemName, quantity){
+    // check store size
+
+    this.storage[itemName] += quantity;
+    console.log(this.storage);
+
+
+  }
   private waterPrice = 1;
 
   public  set WaterPrice(value){
@@ -132,7 +177,7 @@ class Storage {
   }
 
 
-  private market = Market.instance;
+  private market = marketPriceConfig;
 
 
   public buyProductSeed(seed) {
@@ -299,7 +344,7 @@ class FieldCell {
 
     }, (err) => {
       console.log(err);
-      console.log('no more monney');
+      alertify.log('no more monney');
     });
 
   }
@@ -326,7 +371,7 @@ class FieldCell {
         },
         (err) => {
           console.log(err);
-          console.log('no more money');
+          alertify.log('no more money');
         }
       )
     }
@@ -384,6 +429,10 @@ export var getPlantTypeByName = {
 }
 export var getPlantInfoByName = (name: string) => {
 
+  console.log(PlantsSrc);
+  console.log(PlantsObj);
+  if (PlantsSrc[name] !== undefined && PlantsObj[name].price !== undefined ) {
+
   return {
     src: PlantsSrc[name],
     name: name,
@@ -391,6 +440,9 @@ export var getPlantInfoByName = (name: string) => {
     price: PlantsObj[name].price,
 
   };
+  }else{
+    return undefined;
+  }
 }
 
 
@@ -409,7 +461,7 @@ var PlantsSrc = {
 
 const PlantsObj = {
   grass: {
-    price: Market.instance.productPrice.grass,
+    price: marketPriceConfig.productPrice.grass,
     growPeriod: 20,
     negativeEffectSensative: 50,
     basicQuantity: 3,
@@ -418,7 +470,7 @@ const PlantsObj = {
     text: ' Grass SeedGrass seed involves spreading and sprouting new grass from a bag of seed. It’s more cost-effective than laying sod, but unlike the instant gratification that sod provides, seed takes 5 to 30 days to grow—and can take years to fill in completely.'
   },
   tomato: {
-    price: Market.instance.productPrice.tomato,
+    price: marketPriceConfig.productPrice.tomato,
     negativeEffectSensative: 5,
     growPeriod: 2,
     basicDeltaGrow: 1,
@@ -430,7 +482,7 @@ const PlantsObj = {
     growPeriod: 1,
     basicDeltaGrow: 0,
     bassicWaterUsage: 1,
-    price: Market.instance.productPrice.ground,
+    price: marketPriceConfig.productPrice.ground,
     negativeEffectSensative: 0,
     basicQuantity: 3,
     text: '-Easy to grow '
@@ -440,7 +492,7 @@ const PlantsObj = {
     basicDeltaGrow: 1,
     bassicWaterUsage: 3,
     basicQuantity: 3,
-    price: Market.instance.productPrice.onion,
+    price: marketPriceConfig.productPrice.onion,
     negativeEffectSensative: 5,
     text: '-Easy to grow, hard to eat '
   }, watermelon: {
@@ -448,7 +500,7 @@ const PlantsObj = {
     basicDeltaGrow: 1,
     bassicWaterUsage: 3,
     basicQuantity: 3,
-    price: Market.instance.productPrice.watermelon,
+    price: marketPriceConfig.productPrice.watermelon,
     negativeEffectSensative: 5,
     text: 'Water and suggar '
   }, buckwheat: {
@@ -456,7 +508,7 @@ const PlantsObj = {
     basicDeltaGrow: 1,
     bassicWaterUsage: 3,
     basicQuantity: 3,
-    price: Market.instance.productPrice.buckwheat,
+    price: marketPriceConfig.productPrice.buckwheat,
     negativeEffectSensative: 5,
     text: '-Easy to grow, hard to eat '
   }, pepper: {
@@ -464,7 +516,7 @@ const PlantsObj = {
     basicDeltaGrow: 1,
     basicQuantity: 3,
     bassicWaterUsage: 3,
-    price: Market.instance.productPrice.pepper,
+    price: marketPriceConfig.productPrice.pepper,
     text: 'Too hot ',
     negativeEffectSensative: 5,
   },

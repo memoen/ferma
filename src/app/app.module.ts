@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import {FieldsStoreService,Market} from './service/fields-store.service';
-import {CellInfoService} from './service/cell-info.service';
+import {CellInfoService, CellFactoryInfoService} from './service/cell-info.service';
 import {SelectedSeedService} from './service/selected-seed.service';
 import {SeedService} from './service/storage/seed.service';
 import {VieldViewStateService,StorePageView} from './service/vield-view-state.service';
@@ -28,6 +28,12 @@ import { FactoryListComponent } from './factoryViewPage/factory-list/factory-lis
 import { UpdateListComponent } from './update-list/update-list.component';
 import { UpdateListViewComponentComponent } from './update-list-view-component/update-list-view-component.component';
 import { FactorySqComponent } from './factoryViewPage/factory-sq/factory-sq.component';
+import { FactoryConsoleComponent } from './factoryViewPage/factory-console/factory-console.component';
+
+
+
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 
 var links:Routes =[
@@ -59,18 +65,20 @@ var links:Routes =[
     FactoryListComponent,
     UpdateListComponent,
     UpdateListViewComponentComponent,
-    FactorySqComponent
+    FactorySqComponent,
+    FactoryConsoleComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule, MatCheckboxModule,
     FormsModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot(links),
   ],
   providers: [FieldsStoreService,CellInfoService,
     VieldViewStateService,SelectedSeedService,
-    SeedService,Market,StorePageView],
+    SeedService,Market,StorePageView,CellFactoryInfoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

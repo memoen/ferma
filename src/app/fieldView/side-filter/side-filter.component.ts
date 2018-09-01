@@ -48,6 +48,7 @@ export class SideFilterComponent implements OnInit {
 
   ngOnInit() {
     var keys = Object.keys(getPlantTypeByName);
+    console.log(keys);
     for (var i = 0; i < keys.length; ++i) {
       
     this.seedAtlas.push(getPlantInfoByName(keys[i]));

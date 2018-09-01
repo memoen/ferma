@@ -1,0 +1,96 @@
+<div class="root">
+  <div class="closeItem" (click)="closeItem()"><i class="material-icons">
+    close
+  </i></div>
+  <dir class="contentBody">
+
+    <h2>{{factoryInfo.currentFactory.name}}</h2>
+    <div class="container">
+      <div class="row">
+
+
+        <div class="col-sm-6 imgBlock">
+          <img [src]="factoryInfo.currentFactory.src">
+        </div>
+
+
+        <div class="col-sm-6">
+
+
+          <div>
+
+
+            <h3 class="priceBlock"> Factory Price: {{factoryInfo.currentFactory.price| currency}}</h3>
+          </div>
+
+
+          <div class="cluster__cucle">
+            <div class="container">
+              <div class="row cucleBlock">
+
+                <div class="col-sm-4 inputProduct">
+                  <div *ngFor="let item of inputProductObj">
+
+                    <img [src]="item.src" alt="" class="img-fluid">
+                    <p class=" outputQuantity inputProductQuantity">
+                      {{item.quantity}}
+                    </p>
+                  </div>
+
+                </div>
+                <div class="col-sm-4 followLink">
+
+                  <i class="material-icons">
+                    arrow_right_alt
+                  </i>
+                </div>
+                <div class="col-sm-4 outputProduct">
+                  <!--<p>Output product</p>-->
+                  <img [src]="outputProductSrc" class="img-fluid" alt="">
+                  <p class="outputQuantity"> {{outputProductQuantity}}</p>
+
+                </div>
+
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+          <div class="delayTime">
+              <strong> Produce Time:  </strong>
+              <i class="material-icons">
+                timer
+              </i>
+
+
+              {{delayTime}} S
+          </div>
+
+
+          <div class="initWork">
+
+            <button class="bassicBtn" (click)="ininProductWork()" [disabled]="isFactoryWork === true">Produce product
+            </button>
+            <mat-spinner *ngIf="isFactoryWork === true" [diameter]="40"></mat-spinner>
+          </div>
+
+
+        </div>
+
+
+        <div class="col-sm-12">
+          <p class="textBlock">
+            {{factoryInfo.currentFactory.text}}
+          </p></div>
+      </div>
+
+    </div>
+
+  </dir>
+
+</div>
+<div class="mask" (click)="closeItem()"></div>

@@ -28,3 +28,32 @@ export class CellInfoService {
 
   constructor() { }
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CellFactoryInfoService {
+
+  private isActive = false;
+  public GetStatus(){
+    return this.isActive;
+  }
+
+  public info= {};
+
+  public show(info){
+    if (this.isActive == false) {
+      console.log('show');
+      this.info = info;
+      this.isActive = true;
+    }
+  }
+  public hide(){
+    if (this.isActive == true) {
+      this.isActive = false;
+      this.info = {};
+    }
+  }
+
+  constructor() { }
+}

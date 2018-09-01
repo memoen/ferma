@@ -1,0 +1,92 @@
+.root {
+  width: 90vw;
+  height: 80vh;
+  left: 5%;
+  top: 10%;
+  background: white;
+  position: fixed;
+  z-index: 999;
+  padding: 30px;
+  overflow: scroll;
+}
+.mask{
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: .7;
+  height: 100vh;
+  z-index: 99;
+}
+
+
+.imgBlock img{
+  width: 100%;
+
+}
+
+.priceBlock{
+  /*color: #f9aa33;*/
+  color: #555;
+
+}
+
+.textBlock{
+  font-weight: 500;
+  margin: 10px;
+}
+
+
+
+.outputQuantity{
+  position: absolute;
+  left: 50%;
+  margin-left: -10px;
+  text-align: center;
+  font-size: 50px;
+  color: #f9aa33;
+  font-weight: 100;
+}
+
+.followLink{
+
+}
+
+
+.cucleBlock div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cluster__cucle{
+  padding: 10px;
+  border: 2px solid #f9aa33;
+  border-radius: 10px;
+  margin: 25px auto;
+}
+
+
+.initWork *{
+  display: inline-block;
+}
+.initWork mat-spinner{
+
+  position: relative;
+  top: 15px;
+  left: 20px;
+
+}
+
+.delayTime{
+  margin: 10px;
+  font-weight: 500;
+}
+
+.delayTime i {
+  margin-top: 5px;
+  position: relative;
+  top: 5px;
+
+}

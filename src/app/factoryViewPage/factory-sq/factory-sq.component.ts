@@ -1,4 +1,5 @@
 import { Component, OnInit ,Input } from '@angular/core';
+import {CellFactoryInfoService} from '../../service/cell-info.service';
 
 @Component({
   selector: 'app-factory-sq',
@@ -8,11 +9,19 @@ import { Component, OnInit ,Input } from '@angular/core';
 export class FactorySqComponent implements OnInit {
 
 
-
+  cellServices;
   @Input('cellInfo') cellInfo;
-  constructor() { }
+  constructor(private cellService:CellFactoryInfoService) {
+    this.cellServices = cellService;
+  }
 
   ngOnInit() {
+
+  }
+
+
+  click__cell(){
+    this.cellServices.show(this.cellInfo);
   }
 
 }

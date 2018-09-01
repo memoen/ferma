@@ -11,7 +11,7 @@ export class UpdateListViewComponentComponent implements OnInit {
   initUpdateItem(item){
 
     item.levelUP();
-    console.log(item);
+
   }
   constructor(private updateTree:UpdateTreeService) {
 

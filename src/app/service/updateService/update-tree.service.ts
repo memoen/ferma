@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import {staticStorage, plantObjUpdater} from '../fields-store.service';
+
+declare var alertify: any;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -75,7 +78,7 @@ class  UpdateItem{
        this.pathToConfig[this.configPathField] = Math.pow(this.updateEffectMultipier, this.currentLevel) * this.basicEffectValue;
 
     }, ()=>{
-       console.log('no more money');
+       alertify.log('no more money');
        //// init msg service;
      })
 

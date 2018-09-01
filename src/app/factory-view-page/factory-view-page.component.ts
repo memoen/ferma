@@ -4,8 +4,9 @@ import {FactoryManageService} from  '../service/factory/factory-manage.service';
 
 import {SideFilterComponent} from '../fieldView/side-filter/side-filter.component';
 
+import {FactoryConsoleComponent} from '../factoryViewPage/factory-console/factory-console.component';
 
-
+import {CellFactoryInfoService} from '../service/cell-info.service';
 
 @Component({
   selector: 'app-factory-view-page',
@@ -13,12 +14,13 @@ import {SideFilterComponent} from '../fieldView/side-filter/side-filter.componen
   styleUrls: ['./factory-view-page.component.css']
 })
 export class FactoryViewPageComponent implements OnInit {
-  currentField
-  constructor(private CurrentField: FactoryManageService) {
+  currentField;
+  dialogControl;
+  constructor(private CurrentField: FactoryManageService, private cellStatus:CellFactoryInfoService) {
 
     this.currentField = CurrentField.getFieldByIndex(0);
     console.log(this.currentField);
-
+  this.dialogControl = cellStatus;
 
   }
 

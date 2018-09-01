@@ -12,3 +12,11 @@ button.bassicBtn{
   padding: 5px 10px;
   margin: 5px;
 }
+
+button.bassicBtn:disabled{
+  background: #4a6472;
+
+}
+button.bassicBtn:hover{
+  color: #ccc;
+}
