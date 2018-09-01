@@ -140,6 +140,47 @@
   <h1>Factory</h1>
 
 
+
+    <div class="factoryProductList">
+
+
+
+
+      <mat-checkbox [(ngModel)]="activateModeSetFactory" (click)="setActionFactory('plant')"> Building Mode</mat-checkbox>
+
+      <mat-checkbox [(ngModel)]="destructModeActivate" (click)="setActionFactory('dig')"> Destruct Mode</mat-checkbox>
+
+
+      <div class="selectSeed dropDownList" >
+
+
+        <div class="type" *ngFor='let row of factoryProductList' (click)="setActiveFactory(row.name)" [ngClass]="{highlightX: selectedFactory.selectedFactory ==  row.name}">
+
+          <div class="row">
+            <div class="col-md-4">
+              <img [src]="row.src" class="img-fluid">
+            </div>
+            <div class="col-md-4">
+              {{row.text}}
+
+
+            </div>
+            <div class="col-md-3">{{row.price|currency}}</div>
+
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+
+    </div>
+
+
   </div>
 
 

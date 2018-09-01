@@ -1,12 +1,10 @@
-import {Component, OnInit, ChangeDetectorRef, SimpleChange, OnChanges,ApplicationRef, Input} from '@angular/core';
+import {ApplicationRef, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import { FormsModule }   from '@angular/forms';
-import  {VieldViewStateService,ActionType} from '../../service/vield-view-state.service';
-import {getPlantInfoByName,getPlantTypeByName,staticStorage} from '../../service/fields-store.service';
-import  {SelectedSeedService} from '../../service/selected-seed.service';
-import {ForceTimeComponent} from '../../force-time/force-time.component';
+import {ActionType, VieldViewStateService} from '../../service/vield-view-state.service';
+import {getPlantInfoByName, getPlantTypeByName, staticStorage} from '../../service/fields-store.service';
+import {SelectedSeedService} from '../../service/selected-seed.service';
 
-
+import {getAllFactoryTypeInterface} from '../../service/factory/factory-manage.service';
 
 
 @Component({
@@ -21,115 +19,168 @@ export class SideFilterComponent implements OnInit {
   activeTab;
   Storage;
 
-  moneyUpdateSubscribe:Subscription;
+  moneyUpdateSubscribe: Subscription;
+
+  factoryProductList;
 
 
+  activateModeSetFactory = false;
 
 
-  constructor(private viewFieldState:VieldViewStateService,
-    private selectedSeed:SelectedSeedService,
+  selectedFactory;
 
-              private gdr:ChangeDetectorRef,
-              private aref:ApplicationRef,
+  constructor(private viewFieldState: VieldViewStateService,
+              private selectedSeed: SelectedSeedService,
+              private selectedFactoryPriv: SelectedSeedService,
+              private gdr: ChangeDetectorRef,
+              private aref: ApplicationRef,
+  ) {
 
-              ) {
+
+    this.selectedFactory = selectedFactoryPriv;
 
 
-
-  this.activeTab = viewFieldState;
-  var context = this;
+    this.activeTab = viewFieldState;
+    var context = this;
 
     this.Storage = staticStorage
 
 
   }
-  seedAtlas =[];
+
+  seedAtlas = [];
 
 
   ngOnInit() {
+
+    this.factoryProductList = getAllFactoryTypeInterface();
+    console.log(getAllFactoryTypeInterface());
+
     var keys = Object.keys(getPlantTypeByName);
     console.log(keys);
     for (var i = 0; i < keys.length; ++i) {
-      
-    this.seedAtlas.push(getPlantInfoByName(keys[i]));
+
+      this.seedAtlas.push(getPlantInfoByName(keys[i]));
     }
 
     console.log(this.seedAtlas);
 
 
-    this.moneyUpdateSubscribe =  this.Storage.getUpdate().subscribe((money)=>{
+    this.moneyUpdateSubscribe = this.Storage.getUpdate().subscribe((money) => {
 
       console.log(money);
-     this.refreshModel();
+      this.refreshModel();
     })
 
 
-
-
-
   }
+
   moneyBalance;
-  refreshModel(){
 
-    this.moneyBalance = this.Storage.MoneyBalance ;
+  refreshModel() {
+
+    this.moneyBalance = this.Storage.MoneyBalance;
 
 
   }
 
 
-
-clearMaskGlobal(){
-  this.viewFieldState.GuiFilter = 'none';
-  this.localFilter.dig = false;
-  this.localFilter.water = false;
-  this.localFilter.plant = false;
-}
-
-
-  setAction(type:string){
-  	var action:ActionType;
-  	if(this.viewFieldState.Status == type) {
-  		action = ActionType.none;
-      this.clearMaskGlobal();
-
-  	}else if (type == 'plant') {
-  		action = ActionType.plant;
-      this.clearMaskGlobal();
-  	}else if(type =='water'){
-  		action = ActionType.water;
-      this.clearMaskGlobal();
-
-  	}else if(type =='dig'){
-  		action = ActionType.dig;
-      this.clearMaskGlobal();
-
-  	}
-
-  	this.viewFieldState.Status = action;
-
+  clearMaskGlobal() {
+    this.viewFieldState.GuiFilter = 'none';
+    this.localFilter.dig = false;
+    this.localFilter.water = false;
+    this.localFilter.plant = false;
   }
 
 
-  setActiveSeed(name:string){
+  setAction(type: string) {
+    var action: ActionType;
+    if (this.viewFieldState.Status == type) {
+      action = ActionType.none;
+      this.clearMaskGlobal();
+
+    } else if (type == 'plant') {
+      action = ActionType.plant;
+      this.clearMaskGlobal();
+    } else if (type == 'water') {
+      action = ActionType.water;
+      this.clearMaskGlobal();
+
+    } else if (type == 'dig') {
+      action = ActionType.dig;
+      this.clearMaskGlobal();
+
+    }
+
+    this.viewFieldState.Status = action;
+
+  }
+
+  destructModeActivate = false;
+
+  setActionFactory(namespace) {
+    //this.activateModeSetFactory = !this.activateModeSetFactory;
+      setTimeout(()=>{
+
+      console.log(this.destructModeActivate)
+
+
+    if (namespace === 'plant') {
+      if (this.destructModeActivate === true) {
+        this.destructModeActivate = false;
+      }
+    }
+
+
+    if (namespace === 'dig') {
+
+      if (this.activateModeSetFactory === true) {
+        this.activateModeSetFactory = false;
+      }
+    }
+
+
+
+//// logic trouble when false action activate :)
+
+    if (this.activateModeSetFactory === false && this.destructModeActivate === false) {
+
+      this.viewFieldState.Status = ActionType.none;
+    } else if (this.activateModeSetFactory === true && this.destructModeActivate === false) {
+
+      this.viewFieldState.Status = ActionType.plant;
+
+
+    }else if (this.activateModeSetFactory === false && this.destructModeActivate === true) {
+
+      this.viewFieldState.Status = ActionType.dig;
+
+
+    }
+      }, 0)
+  }
+
+
+  setActiveSeed(name: string) {
     this.selectedSeed.setSeed(name);
   }
 
 
-localFilter ={ // gui
-  dig: false,
-  water: false,
-  plant: false,
-}
+  localFilter = { // gui
+    dig: false,
+    water: false,
+    plant: false,
+  }
 
-  click__DigBox(){
-    
+  click__DigBox() {
+
     this.localFilter.dig = !this.localFilter.dig;
 
     if (this.localFilter.dig === true) {
       this.localFilter.water = false;
       this.localFilter.plant = false;
-    this.viewFieldState.GuiFilter = 'dig';
-    }else{
+      this.viewFieldState.GuiFilter = 'dig';
+    } else {
       this.viewFieldState.GuiFilter = 'none';
       this.localFilter.dig = false;
       this.localFilter.water = false;
@@ -138,14 +189,14 @@ localFilter ={ // gui
     }
   }
 
-  click__WaterBox(){
+  click__WaterBox() {
     this.localFilter.water = !this.localFilter.water;
 
     if (this.localFilter.water === true) {
       this.localFilter.dig = false;
       this.localFilter.plant = false;
-    this.viewFieldState.GuiFilter = 'water';
-    }else{
+      this.viewFieldState.GuiFilter = 'water';
+    } else {
       this.viewFieldState.GuiFilter = 'none';
       this.localFilter.dig = false;
       this.localFilter.water = false;
@@ -155,10 +206,17 @@ localFilter ={ // gui
   }
 
 
-
   isShowStore = false;
-  showStore(){
+
+  showStore() {
     this.isShowStore = true;
+  }
+
+
+  setActiveFactory(name) {
+    console.log(name);
+    console.log(this.selectedFactory);
+    this.selectedFactory.setFactory(name);
   }
 
 }

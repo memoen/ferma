@@ -45,6 +45,8 @@ export class Market {
     watermelon: 30,
     buckwheat: 40,
     milk: 10,
+    drugs: 1000,
+    ketchup: 100,
 
 
   };
@@ -84,6 +86,8 @@ class Storage {
     grass: 8,
     pepper: 3,
     milk: 4,
+    drugs: 1,
+    ketchup: 1,
 
   };
 
@@ -412,7 +416,8 @@ enum Plants {
   ground = 'ground',
   buckwheat = 'buckwheat',
   watermelon = 'watermelon',
-  pepper = 'pepper'
+  pepper = 'pepper',
+  drugs = 'drugs'
 }
 
 
@@ -424,13 +429,13 @@ export var getPlantTypeByName = {
   watermelon: Plants.watermelon,
   buckwheat: Plants.buckwheat,
   pepper: Plants.pepper,
+  drugs: Plants.drugs,
 
 
 }
 export var getPlantInfoByName = (name: string) => {
 
-  console.log(PlantsSrc);
-  console.log(PlantsObj);
+
   if (PlantsSrc[name] !== undefined && PlantsObj[name].price !== undefined ) {
 
   return {
@@ -455,6 +460,7 @@ var PlantsSrc = {
   watermelon: '../assets/watermelon.png',
   buckwheat: '../assets/buckwheat.png',
   deadPlant: '../assets/plantDead.png',
+  drugs: '../assets/drugs.png',
 
 }
 
@@ -464,6 +470,15 @@ const PlantsObj = {
     price: marketPriceConfig.productPrice.grass,
     growPeriod: 20,
     negativeEffectSensative: 50,
+    basicQuantity: 3,
+    basicDeltaGrow: 1,
+    bassicWaterUsage: 3,
+    text: ' Grass SeedGrass seed involves spreading and sprouting new grass from a bag of seed. It’s more cost-effective than laying sod, but unlike the instant gratification that sod provides, seed takes 5 to 30 days to grow—and can take years to fill in completely.'
+  },
+  drugs: {
+    price: marketPriceConfig.productPrice.drugs,
+    growPeriod: 20,
+    negativeEffectSensative: 10,
     basicQuantity: 3,
     basicDeltaGrow: 1,
     bassicWaterUsage: 3,

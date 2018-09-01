@@ -31,6 +31,8 @@ export class FactoryConsoleComponent implements OnInit {
     this.delayTime = this.factoryInfo.currentFactory.basicDelay/1000;
     this.outputProductSrc = getFactoryProductInfoByName(this.factoryInfo.currentFactory.outputProduct).src;
     this.outputProductQuantity = this.factoryInfo.currentFactory.basicOutput;
+
+    console.log(this.factoryInfo);
     this.inputProductObj = this.factoryInfo.currentFactory.inputProduct.map(item=>{
       return {
         src: getPlantInfoByName(item.item).src,

@@ -4,6 +4,8 @@ declare var alertify: any;
 
 
 import {getPlantTypeByName, staticStorage, marketPriceConfig} from '../fields-store.service';
+import {SelectedSeedService} from '../selected-seed.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -55,6 +57,8 @@ class Field{
 const factorysSrc ={
   cowFactory: '../../assets/factory/cowFactory.png',
   beton: '../../assets/factory/beton.png',
+  ketchupFactory: '../../assets/factory/ketchupFactory.png',
+
 
 };
 
@@ -66,10 +70,12 @@ const factorysSrc ={
 const factoryRegister = {
   cowFactory: 'cowFactory',
   beton: 'beton',
+  ketchupFactory: 'ketchupFactory',
 }
 
 enum goodsProduct {
   milk = 'milk',
+  ketchup ='ketchup',
 
 }
 
@@ -79,6 +85,12 @@ const outputGoodsRegister = {
     price: marketPriceConfig.productPrice.milk,
     src: '../../assets/goods/milk.png',
 
+  },
+  ketchup: {
+    name: 'ketchup',
+    price: marketPriceConfig.productPrice.ketchup,
+    src: '../../assets/goods/ketchup.png',
+
   }
 }
 
@@ -86,9 +98,13 @@ const outputGoodsRegister = {
 
 
 
+
+
+
 const  factoryList = {
   cowFactory: {
-    name: 'cow factory',
+    name: 'cowFactory',
+    text: 'cow factory',
     price: 300,
     inputProduct: [{item: getPlantTypeByName.grass, quantity: 3} ],
     outputProduct: goodsProduct.milk,
@@ -97,18 +113,55 @@ const  factoryList = {
 
     basicOutput: 1,
   },
+
   beton: {
   name: 'beton',
+    text: 'beton',
     price: 0,
-    inputProduct: getPlantTypeByName.grass,
+    inputProduct:  [{item: getPlantTypeByName.grass, quantity: 0} ],
     outputProduct: goodsProduct.milk,
     basicDelay: 5000,
     energyUse: 0,
-    basicInput: 0,
+
     basicOutput: 0,
 },
 
+  ketchupFactory: {
+  name: 'ketchupFactory',
+    text: 'ketchup factory',
+    price: 100,
+    inputProduct:  [{item: getPlantTypeByName.tomato, quantity: 4} ],
+    outputProduct: goodsProduct.ketchup,
+    basicDelay: 3000,
+    energyUse: 2000,
+
+    basicOutput: 1,
+},
+
 }
+
+
+export  const getAllFactoryTypeInterface = ()=>{
+
+  var keys = Object.keys(factoryList);
+  console.log(keys);
+  var  outputList = [];
+  for (let i= 0; i< keys.length; i ++){
+
+    let outItem = factoryList[keys[i]];
+    outItem.src = factorysSrc[keys[i]];
+
+
+
+    outputList.push(outItem);
+  }
+  return outputList;
+
+}
+
+
+
+
 
 class FieldCell {
   index;
@@ -142,10 +195,35 @@ class FieldCell {
 
 
   }
+
+
+  setFactory(name){
+
+    console.log(name);
+    if (this.currentFactory.name ==='beton'){
+
+        var price = factoryList[name].price;
+      this.globalStorageRef.buyItem(price).then(()=>{
+
+        this.currentFactory = new Factory(name);
+      },()=>{
+        alertify.log('no more money');
+      })
+    } else{
+      alertify.log('used cell');
+    }
+  }
+
+
+  destructFactory(){
+    this.currentFactory = new Factory('beton');
+  }
+
   constructor(i){
 
     this.index = i;
-    this.currentFactory = new Factory(factoryRegister.cowFactory);
+    this.currentFactory = new Factory(factoryRegister.beton);
+
   }
 
 }

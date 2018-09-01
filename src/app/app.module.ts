@@ -42,7 +42,7 @@ var links:Routes =[
   {path:'updates', component: UpdateListViewComponentComponent},
   {path: 'factory', component: FactoryViewPageComponent},
   {path: 'storage', component: GeneralStorePageComponent},
-  {path: '', redirectTo: '/storage' ,pathMatch: 'full'},
+  {path: '', redirectTo: '/factory' ,pathMatch: 'full'},
 ]
 
 
