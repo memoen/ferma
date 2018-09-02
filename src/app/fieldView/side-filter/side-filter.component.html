@@ -19,7 +19,6 @@
 
 
 
-  <div *ngIf="mode === 'ground'">
 
 
   <div class="container-fluid storageButton">
@@ -30,8 +29,9 @@
     <button routerLink="/updates" class="bassicBtn" >Updates</button>
 
     <button routerLink="/factory" class="bassicBtn" >Factory</button>
-
+    <button routerLink="/field/0" class="bassicBtn" >Field</button>
   </div>
+  <div *ngIf="mode === 'ground'">
 
 
 

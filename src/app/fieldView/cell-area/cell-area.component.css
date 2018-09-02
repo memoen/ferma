@@ -3,20 +3,28 @@
 	width: 100px;
 	height: 100px;
 	overflow: hidden;
-	background: red;
-	border: 1px solid white;
+
+	/*border: 1px solid white;*/
 	    margin-top: -10px;
 }
 
 .rowBreake{
 	clear: both;
 }.root {
-	overflow: scroll;
+   overflow: scroll;
+   background-image: url("../../../assets/grass.png");
+   min-height: 100vh;
+   height: 100%;
+   background-size: 100%;
+ }
+ .subRoot{
+
+  margin-right: 250px;
 }
 
 
 .cellContainer{
-	/*transform: rotate3d(111,48,26,-45deg);*/
-  margin-top: 100px;
-	margin-left: 200px;
+	transform: rotate3d(111,48,26,-45deg);
+
+  margin: 300px;
 }

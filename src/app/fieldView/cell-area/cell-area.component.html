@@ -1,10 +1,12 @@
 <div class="root" >
-	
+
+  <div class="subRoot">
+
 	<div class="cellContainer" [ngStyle]='{width: 100 *currentField.width +"px"}'>
-		
+
 	<div class="cellBlock" *ngFor="let cell of cellOfField, index as i" >
 		<div>
-			
+
 		<app-sq-cell [cellInfo]='cell' *ngIf="mode === 'ground'" ></app-sq-cell>
 
       <app-factory-sq [cellInfo]='cell' *ngIf="mode === 'factory'" ></app-factory-sq>
@@ -13,6 +15,7 @@
 <!--rowBreake: i % currentField.width == 0}-->
 		</div>
 	</div>
+  </div>
 	</div>
 
 </div>

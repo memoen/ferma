@@ -1,25 +1,67 @@
 import { Component, OnInit } from '@angular/core';
 import  {CellInfoService} from '../../service/cell-info.service';
-
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 
 @Component({
   selector: 'app-cell-info',
   templateUrl: './cell-info.component.html',
-  styleUrls: ['./cell-info.component.css']
+  styleUrls: ['./cell-info.component.css'],
+  animations: [
+    trigger('floatTip', [
+      state('dead', style({
+        left: '-90vw',
+        opacity: 0,
+      })),
+      state('life',   style({
+        opacity: 1,
+        left: '5vw',
+
+        
+      })),
+      transition('dead => life', animate('500ms ease-in')),
+      transition('life => dead', animate('500ms ease-out'))
+    ]),
+
+    trigger('mask', [
+      state('dead', style({
+        left: '-90vw',
+        opacity: 0,
+      })),
+      state('life',   style({
+        opacity: 1,
+        left: '5vw',
+      })),
+      transition('dead => life', animate('500ms ease-in')),
+      transition('life => dead', animate('500ms ease-out'))
+    ]),
+
+
+
+  ],
+
 })
 export class CellInfoComponent implements OnInit {
 
+  lifeStatus = 'dead';
   constructor(private cellInfo:CellInfoService) { }
 plantInfo;
 
   ngOnInit() {
   	console.log(this.cellInfo);
   	this.plantInfo = this.cellInfo.info;
+  	this.lifeStatus = 'life';
   }
 
   closeItem(){
-  	this.cellInfo.hide();
+    this.lifeStatus ='dead';
+    setTimeout(()=>{
+
+        this.cellInfo.hide();
+        console.log('hide');
+      }
+      , 500);
+
   }
 
 }

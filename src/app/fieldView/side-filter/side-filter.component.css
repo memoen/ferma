@@ -1,3 +1,16 @@
+@keyframes rootInit {
+  from {
+
+    right: -250px;
+    opacity: .9;
+   }
+  to {
+
+    right: 0;
+    opacity: 1;
+  }
+}
+
 .root {
   height: 100vh;
   /* border: 1px solid #333; */
@@ -12,6 +25,11 @@
   box-shadow: -3px 3px 5px 0px #aaa;
 
   padding-bottom: 60px ;
+
+  animation-name: rootInit;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-direction: alternate;
 }
 
 
@@ -96,6 +114,7 @@
   border-radius: 5px;
   margin-top: 20px;
 
+
 }
 
 .actionPrice{
@@ -117,6 +136,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
 
 
 

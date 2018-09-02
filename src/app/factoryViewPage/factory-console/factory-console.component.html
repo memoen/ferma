@@ -1,4 +1,4 @@
-<div class="root">
+<div class="root"   [@floatTip]="lifeStatus">
   <div class="closeItem" (click)="closeItem()"><i class="material-icons">
     close
   </i></div>
@@ -93,4 +93,4 @@
   </dir>
 
 </div>
-<div class="mask" (click)="closeItem()"></div>
+<div class="mask" (click)="closeItem()" *ngIf='lifeStatus === "life"'></div>

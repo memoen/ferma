@@ -75,6 +75,7 @@ var links:Routes =[
     FormsModule,
     MatProgressSpinnerModule,
     RouterModule.forRoot(links),
+
   ],
   providers: [FieldsStoreService,CellInfoService,
     VieldViewStateService,SelectedSeedService,

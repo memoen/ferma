@@ -1,5 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy} from '@angular/core';
 import  {CellFactoryInfoService} from '../../service/cell-info.service';
+
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+
+
 
 import {getPlantInfoByName} from '../../service/fields-store.service';
 import {getFactoryProductInfoByName,getAllFactoryTypeInterfaceAsObj ,getAllGoodsInterfaceAsObj} from '../../service/factory/factory-manage.service'
@@ -9,11 +19,47 @@ declare var alertify: any;
 @Component({
   selector: 'app-factory-console',
   templateUrl: './factory-console.component.html',
-  styleUrls: ['./factory-console.component.css']
+  styleUrls: ['./factory-console.component.css'],
+  animations: [
+    trigger('floatTip', [
+      state('dead', style({
+        left: '-90vw',
+        opacity: 0,
+      })),
+      state('life',   style({
+        opacity: 1,
+        left: '5vw',
+      })),
+      transition('dead => life', animate('500ms ease-in')),
+      transition('life => dead', animate('500ms ease-out'))
+    ]),
+
+  trigger('mask', [
+    state('dead', style({
+      left: '-90vw',
+      opacity: 0,
+    })),
+    state('life',   style({
+      opacity: 1,
+      left: '5vw',
+    })),
+    transition('dead => life', animate('500ms ease-in')),
+    transition('life => dead', animate('500ms ease-out'))
+  ]),
+
+
+
+],
+
+
+
+
+
 })
 export class FactoryConsoleComponent implements OnInit {
 
   factoryInfo;
+  lifeStatus = 'dead';
   factoryInfoObj;
 
 
@@ -53,12 +99,18 @@ export class FactoryConsoleComponent implements OnInit {
   }
 
   ngOnInit() {
-
+      this.lifeStatus = 'life';
   }
 
 
   closeItem(){
+    this.lifeStatus ='dead';
+    setTimeout(()=>{
+
     this.factoryInfoObj.hide();
+    console.log('hide');
+    }
+      , 500);
   }
 
 
@@ -74,4 +126,12 @@ export class FactoryConsoleComponent implements OnInit {
 
   }
 
+
+
+
+  ngOnDestroy(){
+
+    console.log('here');
+
+  }
 }
