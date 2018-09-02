@@ -25,20 +25,20 @@ export class FactorySqComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.fieldStateInfo);
+
 
   }
 
 
   click__cell(){
-    if (this.fieldStateInfo.state == 'none') {
+    if (this.fieldStateInfo.factoryStatus == 'none') {
 
     this.cellServices.show(this.cellInfo);
-    }else if(this.fieldStateInfo.state == 'plant'){
+    }else if(this.fieldStateInfo.factoryStatus == 'plant'){
 
 
       this.cellInfo.setFactory(this.factoryToSet.SelectedFactory);
-    }else if(this.fieldStateInfo.state == 'dig'){
+    }else if(this.fieldStateInfo.factoryStatus == 'dig'){
       this.cellInfo.destructFactory();
     }
   }

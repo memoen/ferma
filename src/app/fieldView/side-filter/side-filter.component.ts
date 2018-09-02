@@ -145,15 +145,15 @@ export class SideFilterComponent implements OnInit {
 
     if (this.activateModeSetFactory === false && this.destructModeActivate === false) {
 
-      this.viewFieldState.Status = ActionType.none;
+      this.viewFieldState.factoryStatus = ActionType.none;
     } else if (this.activateModeSetFactory === true && this.destructModeActivate === false) {
 
-      this.viewFieldState.Status = ActionType.plant;
+      this.viewFieldState.factoryStatus = ActionType.plant;
 
 
     }else if (this.activateModeSetFactory === false && this.destructModeActivate === true) {
 
-      this.viewFieldState.Status = ActionType.dig;
+      this.viewFieldState.factoryStatus = ActionType.dig;
 
 
     }

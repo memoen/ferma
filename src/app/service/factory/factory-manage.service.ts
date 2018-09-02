@@ -58,6 +58,7 @@ const factorysSrc ={
   cowFactory: '../../assets/factory/cowFactory.png',
   beton: '../../assets/factory/beton.png',
   ketchupFactory: '../../assets/factory/ketchupFactory.png',
+  cheeseFactory: '../../assets/factory/cheeseFactory.png',
 
 
 };
@@ -71,11 +72,13 @@ const factoryRegister = {
   cowFactory: 'cowFactory',
   beton: 'beton',
   ketchupFactory: 'ketchupFactory',
+  cheeseFactory: 'cheeseFactory',
 }
 
 enum goodsProduct {
   milk = 'milk',
   ketchup ='ketchup',
+  cheese = 'cheese',
 
 }
 
@@ -91,11 +94,60 @@ const outputGoodsRegister = {
     price: marketPriceConfig.productPrice.ketchup,
     src: '../../assets/goods/ketchup.png',
 
+  },
+  cheese: {
+    name: 'cheese',
+    price: marketPriceConfig.productPrice.cheese,
+    src: '../../assets/goods/cheese.png',
+
   }
 }
 
 
 
+export  const getAllGoodsInterfaceAsObj = ()=>{
+
+  var keys = Object.keys(outputGoodsRegister);
+  console.log(keys);
+  var  outputList = [];
+  for (let i= 0; i< keys.length; i ++){
+
+    let outItem = outputGoodsRegister[keys[i]];
+    outItem.src = outputGoodsRegister[keys[i]].src;
+
+
+
+    outputList[keys[i]] = outItem;
+  }
+  return outputList;
+
+}
+
+
+
+
+
+export  const allProduceItem :any= ()=>{
+  var source1 =getPlantTypeByName;
+  var source2= getAllGoodsInterfaceAsObj();
+
+
+  var newMap  = {};
+
+  var key1 = Object.keys(source1);
+  var key2 = Object.keys(source2);
+
+  for (let i =0; i < key1.length; i++) {
+    newMap[key1[i]] = source1[key1[i]];
+  }
+  for (let i =0; i < key2.length; i++) {
+    newMap[key2[i]] = source2[key2[i]].name;
+  }
+  console.log('ntoheunohunth------');
+  console.log(newMap);
+  return newMap;
+
+}
 
 
 
@@ -136,9 +188,20 @@ const  factoryList = {
     energyUse: 2000,
 
     basicOutput: 1,
+},cheeseFactory: {
+  name: 'cheeseFactory',
+    text: 'cheese factory',
+    price: 100,
+    inputProduct:  [{item: allProduceItem().milk, quantity: 1} ],
+    outputProduct: goodsProduct.cheese,
+    basicDelay: 3000,
+    energyUse: 2000,
+
+    basicOutput: 1,
 },
 
 }
+
 
 
 export  const getAllFactoryTypeInterface = ()=>{
@@ -158,6 +221,29 @@ export  const getAllFactoryTypeInterface = ()=>{
   return outputList;
 
 }
+
+
+export  const getAllFactoryTypeInterfaceAsObj = ()=>{
+
+  var keys = Object.keys(factoryList);
+  console.log(keys);
+  var  outputList = [];
+  for (let i= 0; i< keys.length; i ++){
+
+    let outItem = factoryList[keys[i]];
+    outItem.src = factorysSrc[keys[i]];
+
+
+
+    outputList[keys[i]] = outItem;
+  }
+  return outputList;
+
+}
+
+
+
+
 
 
 

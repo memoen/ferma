@@ -47,6 +47,13 @@ export class Market {
     milk: 10,
     drugs: 1000,
     ketchup: 100,
+    cheese: 200,
+    wheat: 45,
+    rye: 55,
+    strawberries: 70,
+    raspberry: 60,
+    potato: 60,
+
 
 
   };
@@ -88,6 +95,12 @@ class Storage {
     milk: 4,
     drugs: 1,
     ketchup: 1,
+    cheese: 3,
+    wheat: 1,
+    rye: 4,
+    strawberries: 3,
+    raspberry: 12,
+    potato:23,
 
   };
 
@@ -417,7 +430,13 @@ enum Plants {
   buckwheat = 'buckwheat',
   watermelon = 'watermelon',
   pepper = 'pepper',
-  drugs = 'drugs'
+  drugs = 'drugs',
+  wheat = 'wheat',
+  rye = 'rye',
+  strawberries = 'strawberries',
+  raspberry = 'raspberry',
+  potato = 'potato',
+
 }
 
 
@@ -429,10 +448,16 @@ export var getPlantTypeByName = {
   watermelon: Plants.watermelon,
   buckwheat: Plants.buckwheat,
   pepper: Plants.pepper,
+  wheat: Plants.wheat,
   drugs: Plants.drugs,
+  rye: Plants.rye,
+  strawberries: Plants.strawberries,
+  raspberry: Plants.raspberry,
+  potato: Plants.potato,
 
 
-}
+
+};
 export var getPlantInfoByName = (name: string) => {
 
 
@@ -461,6 +486,11 @@ var PlantsSrc = {
   buckwheat: '../assets/buckwheat.png',
   deadPlant: '../assets/plantDead.png',
   drugs: '../assets/drugs.png',
+  wheat: '../assets/wheat.png',
+  rye: '../assets/rye.png',
+  strawberries: '../assets/strawberries.png',
+  raspberry: '../assets/raspberry.png',
+  potato: '../assets/potato.png',
 
 }
 
@@ -510,6 +540,15 @@ const PlantsObj = {
     price: marketPriceConfig.productPrice.onion,
     negativeEffectSensative: 5,
     text: '-Easy to grow, hard to eat '
+  },
+  wheat: {
+    growPeriod: 30,
+    basicDeltaGrow: 1,
+    bassicWaterUsage: 3,
+    basicQuantity: 3,
+    price: marketPriceConfig.productPrice.wheat,
+    negativeEffectSensative: 5,
+    text: '-Easy to grow, hard to eat '
   }, watermelon: {
     growPeriod: 30,
     basicDeltaGrow: 1,
@@ -532,6 +571,38 @@ const PlantsObj = {
     basicQuantity: 3,
     bassicWaterUsage: 3,
     price: marketPriceConfig.productPrice.pepper,
+    text: 'Too hot ',
+    negativeEffectSensative: 5,
+  },rye: {
+    growPeriod: 40,
+    basicDeltaGrow: 1,
+    basicQuantity: 3,
+    bassicWaterUsage: 3,
+    price: marketPriceConfig.productPrice.rye,
+    text: 'Too hot ',
+    negativeEffectSensative: 5,
+  },strawberries: {
+    growPeriod: 40,
+    basicDeltaGrow: 1,
+    basicQuantity: 3,
+    bassicWaterUsage: 3,
+    price: marketPriceConfig.productPrice.strawberries,
+    text: 'Too hot ',
+    negativeEffectSensative: 5,
+  },raspberry: {
+    growPeriod: 40,
+    basicDeltaGrow: 1,
+    basicQuantity: 3,
+    bassicWaterUsage: 3,
+    price: marketPriceConfig.productPrice.raspberry,
+    text: 'Too hot ',
+    negativeEffectSensative: 5,
+  },potato: {
+    growPeriod: 40,
+    basicDeltaGrow: 1,
+    basicQuantity: 3,
+    bassicWaterUsage: 3,
+    price: marketPriceConfig.productPrice.potato,
     text: 'Too hot ',
     negativeEffectSensative: 5,
   },

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import  {CellFactoryInfoService} from '../../service/cell-info.service';
 
 import {getPlantInfoByName} from '../../service/fields-store.service';
-import {getFactoryProductInfoByName } from '../../service/factory/factory-manage.service'
+import {getFactoryProductInfoByName,getAllFactoryTypeInterfaceAsObj ,getAllGoodsInterfaceAsObj} from '../../service/factory/factory-manage.service'
 declare var alertify: any;
 
 
@@ -34,8 +34,17 @@ export class FactoryConsoleComponent implements OnInit {
 
     console.log(this.factoryInfo);
     this.inputProductObj = this.factoryInfo.currentFactory.inputProduct.map(item=>{
+      console.log(item);
+     var srcObj =  getPlantInfoByName(item.item);
+      var src;
+     if (srcObj && srcObj.src){
+       src = srcObj.src;
+     } else{
+        src =getAllGoodsInterfaceAsObj()[item.item].src;
+        console.log(src);
+      }
       return {
-        src: getPlantInfoByName(item.item).src,
+        src: src,
         quantity: item.quantity
       }
 

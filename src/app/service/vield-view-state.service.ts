@@ -10,6 +10,7 @@ export class VieldViewStateService {
 
   state:ActionType = ActionType.none;
 
+  factoryState:ActionType = ActionType.none;
 
  private guiFilter;
 
@@ -62,6 +63,16 @@ public putWaterLevel = 10;
 
 
 
+
+  public set factoryStatus(name:ActionType){
+
+    this.factoryState = name;
+
+  }
+  public get factoryStatus(){
+
+    return this.factoryState;
+  }
 
 
 
