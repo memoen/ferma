@@ -250,7 +250,7 @@ export  const getAllFactoryTypeInterfaceAsObj = ()=>{
 
 
 class FieldCell {
-  index;
+  index:number;
   currentFactory:Factory;
   globalStorageRef = staticStorage;
 
@@ -347,7 +347,7 @@ class Factory {
   constructor(factoryType:string){
     const factoryTypeId:string = factoryRegister[factoryType];
     const factoryConfig = factoryList[factoryTypeId];
-
+4
 
     this.src = factorysSrc[factoryTypeId];
     this.name = factoryConfig.name;

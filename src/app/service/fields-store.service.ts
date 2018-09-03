@@ -9,7 +9,7 @@ declare var alertify: any;
 @Injectable()
 export class FieldsStoreService {
 
-  private availableFields: Field[] = [new Field(4, 5)];
+  private availableFields: Field[] = [new Field(14, 15)];
 
 
 
@@ -178,6 +178,9 @@ class Storage {
     this.pushUpdate();
 
   }
+
+
+
 
 
   public subject = new Subject<any>();
