@@ -19,8 +19,8 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 
         
       })),
-      transition('dead => life', animate('500ms ease-in')),
-      transition('life => dead', animate('500ms ease-out'))
+      transition('dead <=> life', animate('300ms ease-in')),
+
     ]),
 
     trigger('mask', [
@@ -32,8 +32,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
         opacity: 1,
         left: '5vw',
       })),
-      transition('dead => life', animate('500ms ease-in')),
-      transition('life => dead', animate('500ms ease-out'))
+      transition('dead <=> life', animate('300ms ease-in')),
     ]),
 
 

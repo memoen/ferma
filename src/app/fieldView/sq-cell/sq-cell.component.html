@@ -1,4 +1,4 @@
-<div class="root noselect" (click)="click__cell()">
+<div class="root noselect" (click)="click__cell()"  [@blink]='statusChangeView'>
 
   <div *ngIf="guiFilterType === 'none' || true" class="imgBlock">
 

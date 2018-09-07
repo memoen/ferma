@@ -6,14 +6,41 @@ import {Subscription} from "rxjs";
 import {Weather} from '../../service/timeService/time-controller.service';
 import {dayTimerInstance} from "../../service/timeService/time-controller.service";
 
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+
 @Component({
   selector: 'app-sq-cell',
   templateUrl: './sq-cell.component.html',
-  styleUrls: ['./sq-cell.component.css']
+  styleUrls: ['./sq-cell.component.css'],
+  animations: [
+    trigger('blink', [
+      state('none', style({
+        opacity: 1,
+        transform: 'scale(1)',
+
+      })),
+      state('active',   style({
+
+        opacity: 0.9,
+        transform: 'scale(1.2)'
+      })),
+      transition('none <=> active', animate('300ms ease-in')),
+      //transition('active => none', animate('600ms ease-out'))
+    ])
+  ]
 })
 export class SqCellComponent implements OnInit {
 	@Input('cellInfo') cellObj;
 	 cellInfoObj;
+  statusChangeView = 'none';
+
+
   constructor(private cellInfo:CellInfoService, 
   private fieldState:VieldViewStateService,private currentSeed:SelectedSeedService,
               private cdf:ChangeDetectorRef,
@@ -91,7 +118,12 @@ export class SqCellComponent implements OnInit {
 
   click__cell(){
     var state = this.fieldState.Status;
+  this.statusChangeView = 'active';
 
+  setTimeout(()=>{
+  this.statusChangeView = 'none';
+
+  },300);
     if (state === 'none') {
       this.showInfoWindow();
 

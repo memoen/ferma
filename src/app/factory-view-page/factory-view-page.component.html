@@ -1,9 +1,19 @@
 <!--<app-factory-field [field]="currentField"></app-factory-field>-->
-<app-cell-area [field]="currentField" [mode]="'factory'"> </app-cell-area>
+<div class="row">
 
+  <div class="col-md-9">
+
+
+<app-cell-area [field]="currentField" [mode]="'factory'"> </app-cell-area>
+  </div>
+
+<div class="col-md-3">
 
 <app-side-filter [mode]="'factory'"> </app-side-filter>
+</div>
 
 
 <app-factory-console *ngIf="dialogControl.GetStatus() === true"></app-factory-console>
+</div>
 
+<div > </div>
